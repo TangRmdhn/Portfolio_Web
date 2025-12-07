@@ -7,6 +7,7 @@ import Home from "@/pages/Home";
 import Projects from "@/pages/Projects";
 import Blog from "@/pages/Blog";
 import Chatbot from "@/pages/Chatbot";
+import BlogPost from "@/pages/BlogPost";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -15,6 +16,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/projects" component={Projects} />
       <Route path="/blog" component={Blog} />
+      <Route path="/blog/:id" component={BlogPost} />
       <Route path="/chatbot" component={Chatbot} />
       <Route component={NotFound} />
     </Switch>
