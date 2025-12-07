@@ -4,10 +4,10 @@ import { MessageSquare, Bot, User } from "lucide-react";
 import { Link } from "wouter";
 
 const sampleMessages = [
-  { role: "user", content: "What technologies do you specialize in?" },
-  { role: "assistant", content: "I specialize in modern web technologies including React, TypeScript, Node.js, and various databases. I'm passionate about creating elegant, user-friendly applications." },
-  { role: "user", content: "Can you tell me about your recent projects?" },
-  { role: "assistant", content: "I'd be happy to! I've recently worked on an e-commerce platform, a task management app, and an analytics dashboard. Each project focuses on performance and user experience." },
+  { role: "user", content: "What is your main focus in AI?" },
+  { role: "assistant", content: "I focus on Machine Learning and Generative AI, bridging the gap between complex algorithms and practical web applications." },
+  { role: "user", content: "Tell me about your latest project, TrainHub." },
+  { role: "assistant", content: "TrainHub is an AI-powered workout planner I built using FastAPI and the Gemini API to create personalized schedules." },
 ];
 
 export default function ChatbotPreview() {
@@ -38,11 +38,10 @@ export default function ChatbotPreview() {
                   </div>
                 )}
                 <div
-                  className={`rounded-xl px-4 py-3 max-w-[80%] ${
-                    message.role === 'user'
-                      ? 'bg-primary text-primary-foreground'
+                  className={`rounded-xl px-4 py-3 max-w-[80%] ${message.role === 'user'
+                      ? 'bg-primary text-white font-medium shadow-sm'
                       : 'bg-muted text-foreground'
-                  }`}
+                    }`}
                 >
                   <p className="text-sm">{message.content}</p>
                 </div>
@@ -58,7 +57,7 @@ export default function ChatbotPreview() {
 
         <div className="text-center">
           <Link href="/chatbot">
-            <Button size="lg" className="rounded-full px-8 py-4" data-testid="button-try-chatbot">
+            <Button size="lg" className="rounded-full px-8 py-4 font-bold" data-testid="button-try-chatbot">
               Try the Chatbot
               <MessageSquare className="w-5 h-5 ml-2" />
             </Button>

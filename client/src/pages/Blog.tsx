@@ -30,7 +30,15 @@ export default function Blog() {
               <Card className="mb-12 overflow-hidden hover-elevate transition-all duration-300 cursor-pointer" data-testid="card-featured-post">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                   <div className="aspect-[21/9] lg:aspect-auto bg-gradient-to-br from-primary/30 via-accent/20 to-muted/20 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60" />
+                    {featuredPost.img ? (
+                      <img
+                        src={featuredPost.img}
+                        alt={featuredPost.title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60" />
+                    )}
                     <Badge className="absolute top-6 left-6" data-testid="badge-featured">
                       Featured
                     </Badge>
@@ -69,7 +77,15 @@ export default function Blog() {
                   data-testid={`card-blog-${post.id}`}
                 >
                   <div className="aspect-video bg-gradient-to-br from-accent/20 via-primary/10 to-muted/20 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60" />
+                    {post.img ? (
+                      <img
+                        src={post.img}
+                        alt={post.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60" />
+                    )}
                   </div>
                   <div className="p-6">
                     <Badge variant="secondary" className="text-xs uppercase tracking-wide mb-3" data-testid={`badge-category-${post.category.toLowerCase()}-${post.id}`}>

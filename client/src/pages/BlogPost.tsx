@@ -22,8 +22,8 @@ export default function BlogPost() {
                 <main className="flex-1 flex flex-col items-center justify-center pt-16">
                     <div className="text-center space-y-4">
                         <h1 className="text-4xl font-bold">Post not found</h1>
-                        <p className="text-muted-foreground">The article you are looking for does not exist.</p>
-                        <Link href="/blog">
+                        <p className="text-muted-foreground text-lg font-medium" style={{ marginBottom: "1rem" }}>The article you are looking for does not exist.</p>
+                        <Link href="/blog" className="mt-4">
                             <Button>Back to Blog</Button>
                         </Link>
                     </div>
@@ -67,13 +67,23 @@ export default function BlogPost() {
 
                     {/* Hero Image */}
                     <div className="aspect-[21/9] w-full bg-muted rounded-xl overflow-hidden mb-12 relative">
-                        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/20 to-muted/20" />
-                        {/* Decorative element to make it look less empty */}
-                        <div className="absolute inset-0 flex items-center justify-center opacity-10">
-                            <span className="text-9xl font-serif font-bold text-foreground">
-                                {post.category.charAt(0)}
-                            </span>
-                        </div>
+                        {post.img ? (
+                            <img
+                                src={post.img}
+                                alt={post.title}
+                                className="w-full h-full object-cover"
+                            />
+                        ) : (
+                            <>
+                                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/20 to-muted/20" />
+                                {/* Decorative element to make it look less empty */}
+                                <div className="absolute inset-0 flex items-center justify-center opacity-10">
+                                    <span className="text-9xl font-serif font-bold text-foreground">
+                                        {post.category.charAt(0)}
+                                    </span>
+                                </div>
+                            </>
+                        )}
                     </div>
 
                     {/* Content */}

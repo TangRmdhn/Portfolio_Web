@@ -4,32 +4,9 @@ import { ArrowRight, Clock } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 
-const blogPosts = [
-  {
-    id: "1",
-    title: "Building Scalable React Applications",
-    excerpt: "Learn the best practices for structuring large-scale React applications with proper state management and code organization.",
-    category: "React",
-    readTime: "8 min read",
-    publishedAt: "2024-10-15",
-  },
-  {
-    id: "2",
-    title: "Modern CSS Techniques for 2024",
-    excerpt: "Explore the latest CSS features including container queries, cascade layers, and modern layout techniques.",
-    category: "CSS",
-    readTime: "6 min read",
-    publishedAt: "2024-10-08",
-  },
-  {
-    id: "3",
-    title: "TypeScript Best Practices",
-    excerpt: "A comprehensive guide to writing type-safe, maintainable TypeScript code for production applications.",
-    category: "TypeScript",
-    readTime: "10 min read",
-    publishedAt: "2024-09-28",
-  },
-];
+import { blogPosts as allBlogPosts } from "@/lib/blogData";
+
+const blogPosts = allBlogPosts.filter(post => post.featured);
 
 export default function BlogHighlights() {
   return (
@@ -52,33 +29,42 @@ export default function BlogHighlights() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {blogPosts.map((post) => (
-            <Card
-              key={post.id}
-              className="overflow-hidden hover-elevate transition-all duration-300 group cursor-pointer"
-              data-testid={`card-blog-${post.id}`}
-            >
-              <div className="aspect-video bg-gradient-to-br from-accent/20 via-primary/10 to-muted/20 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60" />
-              </div>
-              <div className="p-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <Badge variant="secondary" className="text-xs uppercase tracking-wide" data-testid={`badge-category-${post.category.toLowerCase()}`}>
-                    {post.category}
-                  </Badge>
+            <Link key={post.id} href={`/blog/${post.id}`}>
+              <Card
+                className="overflow-hidden hover-elevate transition-all duration-300 group cursor-pointer"
+                data-testid={`card-blog-${post.id}`}
+              >
+                <div className="aspect-video bg-gradient-to-br from-accent/20 via-primary/10 to-muted/20 relative overflow-hidden">
+                  {post.img ? (
+                    <img
+                      src={post.img}
+                      alt={post.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60" />
+                  )}
                 </div>
-                <h3 className="text-xl font-semibold mb-2 line-clamp-2">{post.title}</h3>
-                <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
-                  {post.excerpt}
-                </p>
-                <div className="flex items-center justify-between text-xs text-muted-foreground">
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-3 h-3" />
-                    <span>{post.readTime}</span>
+                <div className="p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Badge variant="secondary" className="text-xs uppercase tracking-wide" data-testid={`badge-category-${post.category.toLowerCase()}`}>
+                      {post.category}
+                    </Badge>
                   </div>
-                  <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
+                  <h3 className="text-xl font-semibold mb-2 line-clamp-2">{post.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
+                    {post.excerpt}
+                  </p>
+                  <div className="flex items-center justify-between text-xs text-muted-foreground">
+                    <div className="flex items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      <span>{post.readTime}</span>
+                    </div>
+                    <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
+                  </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </Link>
           ))}
         </div>
 

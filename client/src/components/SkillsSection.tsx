@@ -6,7 +6,7 @@ const skills = [
   { name: "Machine Learning", icon: Brain, description: "Scikit-learn, Model Evaluation & Deployment" },
   { name: "Python & FastAPI", icon: Code2, description: "Backend API development for AI Services" },
   { name: "RAG & LangChain", icon: Database, description: "Building context-aware AI applications" },
-  { name: "OpenAI & Gemini API", icon: Bot, description: "Advanced model integration & fine-tuning" },
+  { name: "Agentic AI", icon: Bot, description: "Building agentic AI applications" },
   { name: "Data Science", icon: LineChart, description: "Pandas, NumPy, & Data Visualization" },
 ];
 
