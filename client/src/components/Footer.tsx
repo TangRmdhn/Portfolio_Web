@@ -1,9 +1,9 @@
 import { Link } from "wouter";
-import { Github, Linkedin, Instagram, Mail, Heart } from "lucide-react";
+import { Github, Linkedin, Instagram, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+
 
   const socialLinks = [
     { icon: Github, href: "https://github.com/TangRmdhn", label: "GitHub" },
@@ -75,7 +75,7 @@ export default function Footer() {
             © 2025 Bintang Ramadhan. All rights reserved.
           </p>
           <p className="text-sm text-muted-foreground flex items-center gap-1">
-            
+
           </p>
         </div>
       </div>

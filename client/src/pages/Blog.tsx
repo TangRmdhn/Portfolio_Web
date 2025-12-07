@@ -7,7 +7,7 @@ import { Link } from "wouter";
 
 import { blogPosts } from "@/lib/blogData";
 
-const categories = ["All", "React", "CSS", "TypeScript", "Performance", "Accessibility"];
+
 
 export default function Blog() {
   const featuredPost = blogPosts.find(post => post.featured);

@@ -3,8 +3,8 @@ import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Github, Filter } from "lucide-react";
-import { useState } from "react";
+import { ExternalLink, Github } from "lucide-react";
+
 
 import trainhubImg from "@/assets/trainhub.png";
 import whatsinnewsImg from "@/assets/whatsinnews.png";
@@ -14,7 +14,7 @@ import flowerclassificationImg from "@/assets/flower.png";
 import animeclassificationImg from "@/assets/anime.png";
 import heartattackclassificationImg from "@/assets/heart.png";
 import housepricepredictionImg from "@/assets/house.png";
-import sentimentalanalysisImg from "@/assets/sentimental.png";  
+import sentimentalanalysisImg from "@/assets/sentimental.png";
 
 const allProjects = [
   {
@@ -136,14 +136,10 @@ const allProjects = [
   },
 ];
 
-const categories = ["All", "AI Integration", "Web App"];
+
 
 export default function Projects() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
-
-  const filteredProjects = selectedCategory === "All"
-    ? allProjects
-    : allProjects.filter(p => p.category === selectedCategory);
+  const filteredProjects = allProjects;
 
   return (
     <div className="min-h-screen flex flex-col">

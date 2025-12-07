@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 import FotoProfil from "@/assets/FotoProfil.jpg";
 
@@ -37,10 +37,10 @@ export default function HeroSection() {
           </div>
 
           <div className="relative">
-            <img 
-              src={FotoProfil} 
-              alt="Bintang Ramadhan" 
-              className="aspect-square rounded-2xl object-cover border-2 border-primary/20 shadow-2xl" 
+            <img
+              src={FotoProfil}
+              alt="Bintang Ramadhan"
+              className="aspect-square rounded-2xl object-cover border-2 border-primary/20 shadow-2xl"
             />
           </div>
         </div>
