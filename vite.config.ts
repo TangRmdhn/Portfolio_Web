@@ -7,7 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "client", "src"),
-      "@shared": path.resolve(__dirname, "shared"),
+      // Hapus baris @shared kalau masih ada
     },
   },
   root: path.resolve(__dirname, "client"),
