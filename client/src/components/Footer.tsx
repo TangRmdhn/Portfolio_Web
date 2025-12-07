@@ -1,15 +1,15 @@
 import { Link } from "wouter";
-import { Github, Linkedin, Twitter, Mail, Heart } from "lucide-react";
+import { Github, Linkedin, Instagram, Mail, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: Github, href: "https://github.com", label: "GitHub" },
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-    { icon: Mail, href: "mailto:hello@example.com", label: "Email" },
+    { icon: Github, href: "https://github.com/TangRmdhn", label: "GitHub" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/tang-ramadhan", label: "LinkedIn" },
+    { icon: Instagram, href: "https://instagram.com/tangrmdhn", label: "Instagram" },
+    { icon: Mail, href: "mailto:bintangramadhan0710@gmail.com", label: "Email" },
   ];
 
   const quickLinks = [
@@ -72,10 +72,10 @@ export default function Footer() {
 
         <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © {currentYear} Portfolio. All rights reserved.
+            © 2025 Bintang Ramadhan. All rights reserved.
           </p>
           <p className="text-sm text-muted-foreground flex items-center gap-1">
-            Built with <Heart className="w-4 h-4 text-primary fill-primary" /> using React & TypeScript
+            
           </p>
         </div>
       </div>

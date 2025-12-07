@@ -4,34 +4,32 @@ import { ArrowRight, ExternalLink, Github } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 
+import trainhubImg from "@/assets/trainhub.png";
+import whatsinnewsImg from "@/assets/whatsinnews.png";
+
+
 const projects = [
   {
     id: "1",
-    title: "E-Commerce Platform",
-    description: "A full-stack e-commerce solution with real-time inventory management and payment processing.",
-    technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-    imageUrl: null,
+    title: "TrainHub",
+    description: "Web application designed to help users create personalized weekly workout plans using the power of AI.",
+    technologies: ["FastAPI", "Gemini API", "Python"],
+    imageUrl: trainhubImg,
+    link: {
+      github: "https://github.com/TangRmdhn/TrainHub",
+      demo: "https://trainhub.web.id"
+    }
   },
   {
     id: "2",
-    title: "Task Management App",
-    description: "Collaborative task management tool with team collaboration features and real-time updates.",
-    technologies: ["TypeScript", "Next.js", "PostgreSQL", "WebSocket"],
-    imageUrl: null,
-  },
-  {
-    id: "3",
-    title: "Analytics Dashboard",
-    description: "Data visualization dashboard for business intelligence with interactive charts and reports.",
-    technologies: ["React", "D3.js", "Express", "Redis"],
-    imageUrl: null,
-  },
-  {
-    id: "4",
-    title: "Social Media Platform",
-    description: "A modern social networking application with messaging, posts, and real-time notifications.",
-    technologies: ["Vue.js", "Firebase", "TailwindCSS", "WebRTC"],
-    imageUrl: null,
+    title: "WhatsInNews",
+    description: "RAG-based web app that allows users to summarize news articles and chat with the content.",
+    technologies: ["OpenAI API", "LangChain", "ChromaDB"],
+    imageUrl: whatsinnewsImg,
+    link: {
+      github: "https://github.com/TangRmdhn/WhatsInNews",
+      demo: "https://github.com/TangRmdhn/WhatsInNews"
+    }
   },
 ];
 
@@ -62,13 +60,37 @@ export default function ProjectHighlights() {
               data-testid={`card-project-${project.id}`}
             >
               <div className="aspect-video bg-gradient-to-br from-primary/20 via-accent/10 to-muted/20 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60" />
+                {project.imageUrl ? (
+                  <img
+                    src={project.imageUrl}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60" />
+                )}
                 <div className="absolute top-4 right-4 flex gap-2">
                   <div className="p-2 rounded-lg bg-background/80 backdrop-blur-sm hover-elevate active-elevate-2">
-                    <Github className="w-4 h-4" />
+                    <Button
+                      size="icon"
+                      variant="secondary"
+                      className="rounded-lg"
+                      data-testid={`button-github-${project.id}`}
+                      onClick={() => window.open(project.link.github, "_blank")}
+                    >
+                      <Github className="w-4 h-4" />
+                    </Button>
                   </div>
                   <div className="p-2 rounded-lg bg-background/80 backdrop-blur-sm hover-elevate active-elevate-2">
-                    <ExternalLink className="w-4 h-4" />
+                    <Button
+                      size="icon"
+                      variant="secondary"
+                      className="rounded-lg"
+                      data-testid={`button-live-${project.link.demo}`}
+                      onClick={() => window.open(project.link.demo, "_blank")}
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                    </Button>
                   </div>
                 </div>
               </div>

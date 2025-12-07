@@ -1,13 +1,13 @@
-import { Code2, Palette, Database, Smartphone, Globe, Zap } from "lucide-react";
+import { Code2, Database, Sparkles, Brain, Bot, LineChart } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 const skills = [
-  { name: "Frontend Development", icon: Code2, level: 95 },
-  { name: "UI/UX Design", icon: Palette, level: 88 },
-  { name: "Backend APIs", icon: Database, level: 90 },
-  { name: "Mobile Development", icon: Smartphone, level: 82 },
-  { name: "Web Technologies", icon: Globe, level: 93 },
-  { name: "Performance Optimization", icon: Zap, level: 87 },
+  { name: "Generative AI", icon: Sparkles, description: "RAG, Prompt Engineering, & LLM Integration" },
+  { name: "Machine Learning", icon: Brain, description: "Scikit-learn, Model Evaluation & Deployment" },
+  { name: "Python & FastAPI", icon: Code2, description: "Backend API development for AI Services" },
+  { name: "RAG & LangChain", icon: Database, description: "Building context-aware AI applications" },
+  { name: "OpenAI & Gemini API", icon: Bot, description: "Advanced model integration & fine-tuning" },
+  { name: "Data Science", icon: LineChart, description: "Pandas, NumPy, & Data Visualization" },
 ];
 
 export default function SkillsSection() {
@@ -30,20 +30,17 @@ export default function SkillsSection() {
                 className="p-6 hover-elevate transition-all duration-300 cursor-pointer"
                 data-testid={`card-skill-${skill.name.toLowerCase().replace(/\s+/g, '-')}`}
               >
-                <div className="space-y-4">
+                <div className="flex flex-col gap-4">
                   <div className="flex items-center gap-3">
                     <div className="p-2 rounded-lg bg-primary/10">
                       <Icon className="w-6 h-6 text-primary" />
                     </div>
                   </div>
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2">{skill.name}</h3>
-                    <div className="w-full bg-muted rounded-full h-1.5">
-                      <div
-                        className="bg-primary rounded-full h-1.5 transition-all duration-1000"
-                        style={{ width: `${skill.level}%` }}
-                      />
-                    </div>
+                  <div className="flex flex-col gap-2">
+                    <h3 className="text-lg font-semibold">{skill.name}</h3>
+                    <p className="text-sm text-muted-foreground">
+                      {skill.description}
+                    </p>
                   </div>
                 </div>
               </Card>

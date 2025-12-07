@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Download } from "lucide-react";
 import { Link } from "wouter";
+import FotoProfil from "@/assets/FotoProfil.jpg";
+
 
 export default function HeroSection() {
   return (
@@ -10,13 +12,12 @@ export default function HeroSection() {
           <div className="space-y-8">
             <div className="space-y-4">
               <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold font-serif leading-tight">
-                Creative
+                AI Engineer &
                 <br />
-                <span className="text-primary">Developer</span>
+                <span className="text-primary">Machine Learning Enthusiast</span>
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
-                Crafting elegant solutions at the intersection of design and technology. 
-                Specializing in modern web applications with a focus on user experience.
+                I am an AI Engineer (Student) with a keen focus on Machine Learning and cutting-edge technologies like Generative AI.
               </p>
             </div>
 
@@ -27,19 +28,20 @@ export default function HeroSection() {
                   <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
-              <Button size="lg" variant="outline" data-testid="button-download-resume">
-                <Download className="w-4 h-4 mr-2" />
-                Download Resume
-              </Button>
+              <a href="mailto:bintangramadhan0710@gmail.com">
+                <Button size="lg" variant="outline" data-testid="button-contact-me">
+                  Contact Me
+                </Button>
+              </a>
             </div>
           </div>
 
           <div className="relative">
-            <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 via-accent/20 to-muted/20 backdrop-blur-sm border border-border overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-transparent" />
-              <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-primary/30 rounded-full blur-3xl" />
-              <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-accent/30 rounded-full blur-3xl" />
-            </div>
+            <img 
+              src={FotoProfil} 
+              alt="Bintang Ramadhan" 
+              className="aspect-square rounded-2xl object-cover border-2 border-primary/20 shadow-2xl" 
+            />
           </div>
         </div>
       </div>

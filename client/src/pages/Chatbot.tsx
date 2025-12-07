@@ -7,17 +7,17 @@ import { Bot, User, Send, Sparkles } from "lucide-react";
 import { useState } from "react";
 
 const samplePrompts = [
-  "Tell me about your experience with React",
-  "What projects have you worked on?",
-  "What are your strongest skills?",
-  "How can I contact you?",
+  "What is your main focus?",
+  "Tell me about TrainHub",
+  "What makes WhatsInNews special?",
+  "How to contact Bintang?",
 ];
 
 export default function Chatbot() {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: "Hi! I'm an AI assistant that can answer questions about my portfolio, skills, and projects. How can I help you today?",
+      content: "Hi! I'm Bintang's AI Assistant. Ask me about his AI projects, skills, or experience!",
     },
   ]);
   const [input, setInput] = useState("");
@@ -32,16 +32,20 @@ export default function Chatbot() {
     setIsTyping(true);
 
     setTimeout(() => {
-      const responses = [
-        "I have extensive experience with React, including building complex single-page applications with hooks, context, and modern state management solutions.",
-        "I've worked on various projects including e-commerce platforms, task management apps, and analytics dashboards. Each project showcases different aspects of my skill set.",
-        "My strongest skills include frontend development with React and TypeScript, UI/UX design, and building RESTful APIs with Node.js and Express.",
-        "You can reach me through the contact information in my portfolio, or connect with me on LinkedIn, GitHub, or via email.",
-      ];
-      
-      const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-      
-      setMessages(prev => [...prev, { role: "assistant", content: randomResponse }]);
+      let response = "I'm not sure about that. Try asking about my projects or skills!";
+      const lowerInput = input.toLowerCase();
+
+      if (lowerInput.includes("focus") || lowerInput.includes("skill") || lowerInput.includes("experience")) {
+        response = "Bintang is strictly focused on Machine Learning and Generative AI, aiming to become a professional AI Engineer.";
+      } else if (lowerInput.includes("trainhub")) {
+        response = "TrainHub is a smart workout planner powered by Gemini API and FastAPI.";
+      } else if (lowerInput.includes("whatsinnews")) {
+        response = "WhatsInNews is a RAG-based web app that allows users to summarize news articles and chat with the content.";
+      } else if (lowerInput.includes("contact") || lowerInput.includes("email") || lowerInput.includes("reach")) {
+        response = "You can email him at bintangramadhan0710@gmail.com or find him on LinkedIn/Instagram.";
+      }
+
+      setMessages(prev => [...prev, { role: "assistant", content: response }]);
       setIsTyping(false);
     }, 1000);
   };
@@ -54,8 +58,8 @@ export default function Chatbot() {
     <div className="min-h-screen flex flex-col">
       <Navigation />
       <main className="flex-1 pt-16 md:pt-20">
-        <div className="max-w-7xl mx-auto px-6 md:px-8 py-8 md:py-12 h-[calc(100vh-5rem)] md:h-[calc(100vh-6rem)]">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 h-full">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 py-6 h-[calc(100vh-5rem)] flex flex-col gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 h-full min-h-0">
             <div className="lg:col-span-1 space-y-6">
               <Card className="p-6">
                 <div className="flex items-center gap-3 mb-4">
@@ -88,9 +92,9 @@ export default function Chatbot() {
               </Card>
             </div>
 
-            <div className="lg:col-span-3 flex flex-col h-full">
-              <Card className="flex-1 flex flex-col overflow-hidden">
-                <div className="flex-1 overflow-y-auto p-6 space-y-4">
+            <div className="lg:col-span-3 flex flex-col h-full min-h-0">
+              <Card className="flex flex-col h-full overflow-hidden bg-card">
+                <div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-0">
                   {messages.map((message, index) => (
                     <div
                       key={index}
@@ -103,11 +107,10 @@ export default function Chatbot() {
                         </div>
                       )}
                       <div
-                        className={`rounded-xl px-4 py-3 max-w-[85%] ${
-                          message.role === 'user'
-                            ? 'bg-primary text-primary-foreground'
-                            : 'bg-muted text-foreground'
-                        }`}
+                        className={`rounded-xl px-4 py-3 max-w-[85%] ${message.role === 'user'
+                          ? 'bg-primary text-primary-foreground'
+                          : 'bg-muted text-foreground'
+                          }`}
                       >
                         <p className="text-sm leading-relaxed">{message.content}</p>
                       </div>
@@ -134,7 +137,7 @@ export default function Chatbot() {
                   )}
                 </div>
 
-                <div className="border-t border-border p-4">
+                <div className="p-4 border-t border-border bg-card shrink-0">
                   <div className="flex gap-2">
                     <Input
                       value={input}
@@ -158,7 +161,7 @@ export default function Chatbot() {
           </div>
         </div>
       </main>
-      <Footer />
+    <Footer />
     </div>
   );
 }
