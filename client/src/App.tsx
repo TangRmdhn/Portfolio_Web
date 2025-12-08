@@ -8,12 +8,14 @@ import Projects from "@/pages/Projects";
 import Blog from "@/pages/Blog";
 import Chatbot from "@/pages/Chatbot";
 import BlogPost from "@/pages/BlogPost";
+import About from "@/pages/About";
 import NotFound from "@/pages/not-found";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/about" component={About} />
       <Route path="/projects" component={Projects} />
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:id" component={BlogPost} />

@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Home, FolderOpen, FileText, MessageSquare, Menu, X } from "lucide-react";
+import { Home, FolderOpen, FileText, MessageSquare, Menu, X, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
@@ -9,6 +9,7 @@ export default function Navigation() {
 
   const navItems = [
     { path: "/", label: "Home", icon: Home },
+    { path: "/about", label: "About", icon: User },
     { path: "/projects", label: "Projects", icon: FolderOpen },
     { path: "/blog", label: "Blog", icon: FileText },
     { path: "/chatbot", label: "Chatbot", icon: MessageSquare },
@@ -31,9 +32,8 @@ export default function Navigation() {
               return (
                 <Link key={item.path} href={item.path}>
                   <a
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors hover-elevate active-elevate-2 ${
-                      isActive ? "bg-accent text-accent-foreground" : "text-foreground"
-                    }`}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors hover-elevate active-elevate-2 ${isActive ? "bg-accent text-accent-foreground" : "text-foreground"
+                      }`}
                     data-testid={`link-nav-${item.label.toLowerCase()}`}
                   >
                     <Icon className="w-4 h-4" />
@@ -65,9 +65,8 @@ export default function Navigation() {
               return (
                 <Link key={item.path} href={item.path}>
                   <a
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors hover-elevate active-elevate-2 ${
-                      isActive ? "bg-accent text-accent-foreground" : "text-foreground"
-                    }`}
+                    className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors hover-elevate active-elevate-2 ${isActive ? "bg-accent text-accent-foreground" : "text-foreground"
+                      }`}
                     onClick={() => setMobileMenuOpen(false)}
                     data-testid={`link-mobile-${item.label.toLowerCase()}`}
                   >

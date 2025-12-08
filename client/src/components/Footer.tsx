@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Github, Linkedin, Instagram, Mail } from "lucide-react";
+import { Github, Linkedin, Instagram, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Footer() {
@@ -10,10 +10,12 @@ export default function Footer() {
     { icon: Linkedin, href: "https://www.linkedin.com/in/tang-ramadhan", label: "LinkedIn" },
     { icon: Instagram, href: "https://instagram.com/tangrmdhn", label: "Instagram" },
     { icon: Mail, href: "mailto:bintangramadhan0710@gmail.com", label: "Email" },
+    { icon: Phone, href: "https://wa.me/6281286666666", label: "WhatsApp" },
   ];
 
   const quickLinks = [
     { path: "/", label: "Home" },
+    { path: "/about", label: "About" },
     { path: "/projects", label: "Projects" },
     { path: "/blog", label: "Blog" },
     { path: "/chatbot", label: "Chatbot" },

@@ -6,7 +6,7 @@ import FotoProfil from "@/assets/FotoProfil.jpg";
 
 export default function HeroSection() {
   return (
-    <section className="min-h-screen flex items-center pt-16 md:pt-20">
+    <section className="min-h-screen flex items-center pt-16 md:pt-6">
       <div className="max-w-7xl mx-auto px-6 md:px-8 py-20 md:py-24 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="space-y-8">
@@ -22,17 +22,17 @@ export default function HeroSection() {
             </div>
 
             <div className="flex flex-wrap gap-4">
+              <Link href="/about">
+                <Button size="lg" className="group" data-testid="button-about-me">
+                  About Me
+                </Button>
+              </Link>
               <Link href="/projects">
-                <Button size="lg" className="group" data-testid="button-view-projects">
+                <Button size="lg" variant="outline" className="group" data-testid="button-view-projects">
                   View Projects
                   <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
-              <a href="mailto:bintangramadhan0710@gmail.com">
-                <Button size="lg" variant="outline" data-testid="button-contact-me">
-                  Contact Me
-                </Button>
-              </a>
             </div>
           </div>
 
