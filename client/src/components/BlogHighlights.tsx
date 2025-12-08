@@ -16,7 +16,7 @@ export default function BlogHighlights() {
           <div>
             <h2 className="text-4xl md:text-5xl font-bold font-serif mb-4">Latest Articles</h2>
             <p className="text-lg text-muted-foreground">
-              Thoughts on web development, design, and technology
+              Articles about Myself, Achivement, Tutorial, AI development, and the latest in technology 
             </p>
           </div>
           <Link href="/blog">
