@@ -1,4 +1,5 @@
 import studyIMG from '@/assets/learnAI.png';
+import ngajarIMG from '@/assets/ngajarIMG.png';
 
 export interface BlogPost {
   id: string;
@@ -69,7 +70,7 @@ const HowTosStudyWithAI = `
     </blockquote>
 
     <h2>3. Menembus Batas Bahasa</h2>
-    <p>Seringkali referensi terbaik untuk tugas kuliah—seperti jurnal internasional atau dokumentasi teknologi terbaru—tersedia dalam bahasa asing yang kompleks. Dulu, rasanya baru baca abstrak jurnal saja kepala sudah pusing karena harus bolak-balik buka kamus.</p>
+    <p>Seringkali referensi terbaik untuk tugas kuliah seperti jurnal internasional atau dokumentasi teknologi terbaru tersedia dalam bahasa asing yang kompleks. Dulu, rasanya baru baca abstrak jurnal saja kepala sudah pusing karena harus bolak-balik buka kamus.</p>
 
     <p>Kini, saya cukup mengirimkan teks tersebut ke AI dan meminta <strong>konteks</strong>:</p>
 
@@ -82,6 +83,42 @@ const HowTosStudyWithAI = `
     
     <p>Bagi saya, AI adalah <em>leverage</em>. Asalkan kita memiliki kemauan untuk bertanya dan belajar, AI akan membantu kita memecahkan kerumitan materi kuliah jauh lebih cepat. Jangan gunakan AI untuk menggantikan proses berpikir, tapi gunakanlah untuk menajamkannya.</p>
   </div>
+`;
+
+const Ngajar = `
+<div class="prose prose-lg dark:prose-invert max-w-none">
+  <p class="lead">Pernahkah kalian merasa ingin mencoba sesuatu yang benar-benar baru, tapi pikiran kalian sendiri yang malah menahan langkah itu? Itulah yang saya rasakan ketika memutuskan untuk keluar dari zona nyaman dan menjadi pengajar.</p>
+  
+  <h2>Mencoba Hal yang Sangat Baru</h2>
+  <p>Cerita ini bermula ketika saya mendaftar di <strong>IF Learning, </strong>sebuah program belajar bareng di jurusan kami di mana mahasiswa mengajar mahasiswa lainnya. Saya mengambil tantangan untuk mengampu mata kuliah Struktur Data.</p>
+
+  <p>Bagi saya, ini bukan sekadar tugas biasa. Ini adalah pengalaman yang benar-benar baru dan asing. Saya belum pernah punya pengalaman formal mengajar orang lain, apalagi harus membawakan materi teknis yang cukup berat secara daring (<em>online</em>). Tujuan awal saya sebenarnya sederhana: ingin mencari pengalaman baru dan menerapkan metode <em>learning by teaching</em>.</p>
+  
+  <p>Namun, proses menuju ke sana ternyata tidak sesederhana yang saya bayangkan. Saat tombol pendaftaran ada di depan mata, keraguan besar muncul.</p>
+  
+  <p>Saya sempat mencoba mencari "jalan aman" dengan mendaftar untuk mengajar adik tingkat, berharap lebih percaya diri di sana. Namun, takdir berkata lain; saya ditolak di sana tetapi justru dipilih untuk mengajar angkatan saya sendiri.</p>
+
+  <h2>Pergulatan Batin dan Rasa "Imposter"</h2>
+  <ul>
+    <li><strong>Keraguan Identitas:</strong> Selama tiga hari saya berpikir, "Saya ini siapa di angkatan? Memangnya ada yang kenal?" Rasa takut tidak dianggap valid begitu menghantui.</li>
+    <li><strong>Ketakutan Dihakimi:</strong> Ada ketakutan besar dianggap "sok jago" karena harus mengajar teman sebaya (satu angkatan).</li>
+    <li><strong>Perubahan Mindset:</strong> Akhirnya saya berdamai dengan diri sendiri. Jika saya kurang dikenal, inilah saatnya mencoba dikenal. Saya di sini bukan untuk pamer, tapi untuk belajar menjadi lebih baik.</li>
+  </ul>
+
+  <h2>Melawan Arus Kecemasan di Ruang Virtual</h2>
+  <p>Persiapan sudah matang, bahkan saya sudah validasi materi ke dosen. Namun, beberapa jam sebelum sesi Zoom dimulai, "monster" keraguan itu datang lagi. Jantung berdetak kencang, rasa cemas (<em>anxiety</em>) meluap, dan penyesalan mulai muncul. Rasanya ingin membatalkan semuanya saat itu juga.</p>
+  
+  <blockquote>
+    "Kalau saya takut dibilang lebih jago, saya akan bilang ke diri sendiri: Aku di sini bukan karena lebih jago, tapi aku mencoba menjadi lebih jago dengan cara mengajar."
+  </blockquote>
+
+  <p>Namun, saat saya menekan tombol <em>"Start Meeting"</em>, keajaiban terjadi. Di hadapan lebih dari 25 partisipan di layar laptop, rasa takut itu perlahan hilang tergantikan oleh fokus. Mulut yang awalnya terbata-bata mulai lancar mengikuti arus materi (<em>flow state</em>) meskipun kami tidak bertatap muka secara langsung.</p>
+
+  <h2>Dampak yang Sebenarnya</h2>
+  <p>Rasa lega yang sesungguhnya baru datang setelah masa UTS berakhir. Saat saya bertanya kepada teman saya, ia berterima kasih karena nilainya membaik berkat sesi belajar tersebut. Mendengar itu, rasa senangnya luar biasa sampai jauh melebihi ekspektasi saya.</p
+
+  <p>Pengalaman mencoba hal baru ini mengubah perspektif saya sepenuhnya. Menjelang UAS, saya memutuskan untuk mengajar lagi dengan tujuan yang jauh lebih murni: Saya ingin teman-teman saya terbantu, dan saya bahagia bisa menjadi bagian dari kesuksesan mereka.</p>
+</div>
 `;
 
 export const blogPosts: BlogPost[] = [
@@ -98,57 +135,13 @@ export const blogPosts: BlogPost[] = [
   },
   {
     id: "2",
-    title: "Modern CSS Techniques for 2024",
-    excerpt: "Explore the latest CSS features including container queries, cascade layers, subgrid, and modern layout techniques that will transform your web designs.",
-    content: dummyContent,
-    category: "CSS",
+    title: "Mengubah Ragu Menjadi Dampak: Pengalaman Saya Mengajar Teman Satu Angkatan",
+    excerpt: "Pengalaman mengajar Struktur Data di IF Learning yang mengubah perspektif saya sepenuhnya.",
+    content: Ngajar,
+    category: "Personal Development",
     readTime: "6 min read",
-    publishedAt: "2024-10-08",
-    featured: false,
-    img: ""
-  },
-  {
-    id: "3",
-    title: "TypeScript Best Practices",
-    excerpt: "A comprehensive guide to writing type-safe, maintainable TypeScript code for production applications with advanced typing patterns.",
-    content: dummyContent,
-    category: "TypeScript",
-    readTime: "10 min read",
-    publishedAt: "2024-09-28",
-    featured: false,
-    img: ""
-  },
-  {
-    id: "4",
-    title: "State Management in Modern React",
-    excerpt: "Comparing different state management solutions including Context API, Redux, Zustand, and Jotai for various application scales.",
-    content: dummyContent,
-    category: "React",
-    readTime: "12 min read",
-    publishedAt: "2024-09-15",
-    featured: false,
-    img: ""
-  },
-  {
-    id: "5",
-    title: "Performance Optimization Strategies",
-    excerpt: "Deep dive into web performance optimization techniques including lazy loading, code splitting, and bundle size reduction.",
-    content: dummyContent,
-    category: "Performance",
-    readTime: "9 min read",
-    publishedAt: "2024-09-01",
-    featured: false,
-    img: ""
-  },
-  {
-    id: "6",
-    title: "Understanding Web Accessibility",
-    excerpt: "A practical guide to making your web applications accessible to everyone, following WCAG guidelines and best practices.",
-    content: dummyContent,
-    category: "Accessibility",
-    readTime: "7 min read",
-    publishedAt: "2024-08-20",
-    featured: false,
-    img: ""
+    publishedAt: "2025-12-07",
+    featured: true,
+    img: ngajarIMG
   },
 ];
