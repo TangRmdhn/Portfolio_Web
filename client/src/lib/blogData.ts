@@ -13,36 +13,6 @@ export interface BlogPost {
   img: string;
 }
 
-const dummyContent = `
-  <div class="prose prose-lg dark:prose-invert max-w-none">
-    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    
-    <h2>Introduction</h2>
-    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    
-    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-
-    <h2>Key Concepts</h2>
-    <ul>
-      <li><strong>Concept 1:</strong> Detailed explanation here about the first major point. It involves understanding the core principles.</li>
-      <li><strong>Concept 2:</strong> More details about this concept and how it relates to the bigger picture.</li>
-      <li><strong>Concept 3:</strong> Final thoughts on this topic and future implications.</li>
-    </ul>
-
-    <h2>Deep Dive</h2>
-    <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.</p>
-    
-    <blockquote>
-      "This is a sample quote that highlights the importance of the topic discussed in this article."
-    </blockquote>
-
-    <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.</p>
-
-    <h2>Conclusion</h2>
-    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
-  </div>
-`;
-
 const HowTosStudyWithAI = `
 <div class="prose prose-lg dark:prose-invert max-w-none">
     <p class="lead">Seringkali kita mendengar anggapan sinis bahwa <strong>Artificial Intelligence (AI)</strong> adalah musuh bagi dunia pendidikan. Banyak yang khawatir kehadiran AI hanya akan memicu kemalasan, menciptakan generasi mahasiswa yang ingin serba instan.</p>
