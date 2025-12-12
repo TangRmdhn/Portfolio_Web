@@ -13,6 +13,19 @@ const samplePrompts = [
   "How to contact Bintang?",
 ];
 
+
+const renderMessageContent = (text: string) => {
+  // Split text by bold markers (**text**)
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+  return parts.map((part, index) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      // Remove asterisks and render as bold
+      return <strong key={index} className="font-bold">{part.slice(2, -2)}</strong>;
+    }
+    return <span key={index}>{part}</span>;
+  });
+};
+
 export default function Chatbot() {
   const [messages, setMessages] = useState([
     {
@@ -23,31 +36,48 @@ export default function Chatbot() {
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim()) return;
 
     const userMessage = { role: "user", content: input };
-    setMessages(prev => [...prev, userMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsTyping(true);
 
-    setTimeout(() => {
-      let response = "I'm not sure about that. Try asking about my projects or skills!";
-      const lowerInput = input.toLowerCase();
+    try {
+      const response = await fetch("https://samsas-portfolio.hf.space/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: input,
+        }),
+      });
 
-      if (lowerInput.includes("focus") || lowerInput.includes("skill") || lowerInput.includes("experience")) {
-        response = "Bintang is strictly focused on Machine Learning and Generative AI, aiming to become a professional AI Engineer.";
-      } else if (lowerInput.includes("trainhub")) {
-        response = "TrainHub is a smart workout planner powered by Gemini API and FastAPI.";
-      } else if (lowerInput.includes("whatsinnews")) {
-        response = "WhatsInNews is a RAG-based web app that allows users to summarize news articles and chat with the content.";
-      } else if (lowerInput.includes("contact") || lowerInput.includes("email") || lowerInput.includes("reach")) {
-        response = "You can email him at bintangramadhan0710@gmail.com or find him on LinkedIn/Instagram.";
+      if (!response.ok) {
+        throw new Error("Failed to fetch response");
       }
 
-      setMessages(prev => [...prev, { role: "assistant", content: response }]);
+      const data = await response.json();
+
+      // Asumsi response API langsung mengembalikan string di body atau property tertentu
+      // Sesuaikan jika response berbentuk object, misal data.response
+      const aiResponseText = typeof data === 'string' ? data : data.response;
+
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: aiResponseText},
+      ]);
+    } catch (error) {
+      console.error("Chat error:", error);
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: "Sorry, I'm having trouble connecting to the AI server right now. Please try again later." },
+      ]);
+    } finally {
       setIsTyping(false);
-    }, 1000);
+    }
   };
 
   const handlePromptClick = (prompt: string) => {
@@ -112,7 +142,9 @@ export default function Chatbot() {
                           : 'bg-muted text-foreground'
                           }`}
                       >
-                        <p className="text-sm leading-relaxed">{message.content}</p>
+                        <p className="text-sm leading-relaxed">
+                          {renderMessageContent(message.content)}
+                        </p>
                       </div>
                       {message.role === 'user' && (
                         <div className="flex-shrink-0 w-10 h-10 rounded-full bg-accent flex items-center justify-center">
@@ -161,7 +193,7 @@ export default function Chatbot() {
           </div>
         </div>
       </main>
-    <Footer />
+      <Footer />
     </div>
   );
 }
