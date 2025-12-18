@@ -10,11 +10,11 @@ export default function HeroSection() {
 
   return (
     <section className="min-h-screen flex items-center pt-16 md:pt-6">
-      <div className="max-w-7xl mx-auto px-6 md:px-8 py-20 md:py-24 w-full">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-24 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="space-y-8">
             <div className="space-y-4">
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold font-serif leading-tight">
+              <h1 className="text-4xl md:text-7xl lg:text-8xl font-bold font-serif leading-tight">
                 {t('hero.headline1')}
                 <br />
                 <span className="text-primary">{t('hero.headline2')}</span>
@@ -39,7 +39,7 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div className="relative">
+          <div className="relative max-w-sm mx-auto lg:max-w-none lg:mx-0">
             <img
               src={FotoProfil}
               alt="Bintang Ramadhan"

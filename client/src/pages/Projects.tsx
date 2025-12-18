@@ -13,9 +13,9 @@ export default function Projects() {
     <div className="min-h-screen flex flex-col">
       <Navigation />
       <main className="flex-1 pt-16 md:pt-20">
-        <div className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 py-16 md:py-20">
           <div className="mb-12">
-            <h1 className="text-5xl md:text-6xl font-bold font-serif mb-4">All Projects</h1>
+            <h1 className="text-4xl md:text-6xl font-bold font-serif mb-4">All Projects</h1>
             <p className="text-lg text-muted-foreground ">
               Exploring the frontiers of Generative AI and Machine Learning through practical, problem-solving projects.
             </p>
@@ -64,7 +64,7 @@ export default function Projects() {
                     </Button>
                   </div>
                 </div>
-                <div className="p-6">
+                <div className="p-5 md:p-6">
                   <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
                   <p className="text-sm text-muted-foreground mb-4">
                     {project.description}

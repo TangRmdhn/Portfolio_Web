@@ -9,7 +9,7 @@ export default function ProjectHighlights() {
   const highlightedProjects = projectData.filter(p => p.featured);
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-card">
-      <div className="max-w-7xl mx-auto px-6 md:px-8">
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between mb-12 md:mb-16">
           <div>
             <h2 className="text-4xl md:text-5xl font-bold font-serif mb-4">Featured Projects</h2>
@@ -25,7 +25,7 @@ export default function ProjectHighlights() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8">
           {highlightedProjects.map((project) => (
             <Card
               key={project.id}
@@ -67,7 +67,7 @@ export default function ProjectHighlights() {
                   </div>
                 </div>
               </div>
-              <div className="p-6 md:p-8">
+              <div className="p-5 md:p-8">
                 <h3 className="text-2xl font-semibold mb-3">{project.title}</h3>
                 <p className="text-base text-muted-foreground mb-4 line-clamp-2">
                   {project.description}

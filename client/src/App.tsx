@@ -10,6 +10,7 @@ import Chatbot from "@/pages/Chatbot";
 import BlogPost from "@/pages/BlogPost";
 import About from "@/pages/About";
 import NotFound from "@/pages/not-found";
+import ScrollToTop from "@/components/scroll-to-top";
 
 function Router() {
   return (
@@ -29,6 +30,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        <ScrollToTop />
         <Toaster />
         <Router />
       </TooltipProvider>
