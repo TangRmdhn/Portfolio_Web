@@ -2,9 +2,12 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 import FotoProfil from "@/assets/FotoProfil.jpg";
+import { useTranslation } from "react-i18next";
 
 
 export default function HeroSection() {
+  const { t } = useTranslation();
+
   return (
     <section className="min-h-screen flex items-center pt-16 md:pt-6">
       <div className="max-w-7xl mx-auto px-6 md:px-8 py-20 md:py-24 w-full">
@@ -12,24 +15,24 @@ export default function HeroSection() {
           <div className="space-y-8">
             <div className="space-y-4">
               <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold font-serif leading-tight">
-                AI Engineer &
+                {t('hero.headline1')}
                 <br />
-                <span className="text-primary">Machine Learning Enthusiast</span>
+                <span className="text-primary">{t('hero.headline2')}</span>
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
-                I am an AI Engineer (Student) with a keen focus on Machine Learning and cutting-edge technologies like Generative AI.
+                {t('hero.description')}
               </p>
             </div>
 
             <div className="flex flex-wrap gap-4">
               <Link href="/about">
                 <Button size="lg" className="group" data-testid="button-about-me">
-                  About Me
+                  {t('hero.buttonAbout')}
                 </Button>
               </Link>
               <Link href="/projects">
                 <Button size="lg" variant="outline" className="group" data-testid="button-view-projects">
-                  View Projects
+                  {t('hero.buttonProjects')}
                   <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>

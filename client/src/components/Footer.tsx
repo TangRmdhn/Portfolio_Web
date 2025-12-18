@@ -1,9 +1,10 @@
 import { Link } from "wouter";
 import { Github, Linkedin, Instagram, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
-
+  const { t } = useTranslation();
 
   const socialLinks = [
     { icon: Github, href: "https://github.com/TangRmdhn", label: "GitHub" },
@@ -14,11 +15,11 @@ export default function Footer() {
   ];
 
   const quickLinks = [
-    { path: "/", label: "Home" },
-    { path: "/about", label: "About" },
-    { path: "/projects", label: "Projects" },
-    { path: "/blog", label: "Blog" },
-    { path: "/chatbot", label: "Chatbot" },
+    { path: "/", label: t('nav.home') },
+    { path: "/about", label: t('nav.about') },
+    { path: "/projects", label: t('nav.projects') },
+    { path: "/blog", label: t('nav.blog') },
+    { path: "/chatbot", label: t('nav.chatbot') },
   ];
 
   return (
@@ -28,12 +29,12 @@ export default function Footer() {
           <div>
             <h3 className="text-xl font-serif font-bold mb-2">Portfolio</h3>
             <p className="text-sm text-muted-foreground">
-              Crafting digital experiences with passion and precision
+              {t('footer.tagline')}
             </p>
           </div>
 
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wide mb-4">Quick Links</h4>
+            <h4 className="text-sm font-semibold uppercase tracking-wide mb-4">{t('footer.quickLinks')}</h4>
             <div className="flex flex-col gap-2">
               {quickLinks.map((link) => (
                 <Link key={link.path} href={link.path}>
@@ -49,7 +50,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wide mb-4">Connect</h4>
+            <h4 className="text-sm font-semibold uppercase tracking-wide mb-4">{t('footer.connect')}</h4>
             <div className="flex gap-2">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
@@ -74,7 +75,7 @@ export default function Footer() {
 
         <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © 2025 Bintang Ramadhan. All rights reserved.
+            {t('footer.copyright')}
           </p>
           <p className="text-sm text-muted-foreground flex items-center gap-1">
 

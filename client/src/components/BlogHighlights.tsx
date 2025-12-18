@@ -3,25 +3,29 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Clock } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 
 import { blogPosts as allBlogPosts } from "@/lib/blogData";
 
 const blogPosts = allBlogPosts.filter(post => post.featured);
 
 export default function BlogHighlights() {
+  const { t, i18n } = useTranslation();
+  const currentLang = (i18n.language === 'id' ? 'id' : 'en') as 'en' | 'id';
+
   return (
     <section className="py-16 md:py-20 lg:py-24">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
         <div className="flex items-center justify-between mb-12 md:mb-16">
           <div>
-            <h2 className="text-4xl md:text-5xl font-bold font-serif mb-4">Latest Articles</h2>
+            <h2 className="text-4xl md:text-5xl font-bold font-serif mb-4">{t('blog.latestArticles')}</h2>
             <p className="text-lg text-muted-foreground">
-              Articles about Myself, Achivement, Tutorial, AI development, and the latest in technology 
+              {t('blog.latestDescription')}
             </p>
           </div>
           <Link href="/blog">
             <Button variant="outline" className="hidden md:flex" data-testid="button-view-all-posts">
-              View All
+              {t('blog.viewAll')}
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </Link>
@@ -38,7 +42,7 @@ export default function BlogHighlights() {
                   {post.img ? (
                     <img
                       src={post.img}
-                      alt={post.title}
+                      alt={post.title[currentLang]}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   ) : (
@@ -51,9 +55,9 @@ export default function BlogHighlights() {
                       {post.category}
                     </Badge>
                   </div>
-                  <h3 className="text-xl font-semibold mb-2 line-clamp-2">{post.title}</h3>
+                  <h3 className="text-xl font-semibold mb-2 line-clamp-2">{post.title[currentLang]}</h3>
                   <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
-                    {post.excerpt}
+                    {post.excerpt[currentLang]}
                   </p>
                   <div className="flex items-center justify-between text-xs text-muted-foreground">
                     <div className="flex items-center gap-1">
@@ -71,7 +75,7 @@ export default function BlogHighlights() {
         <div className="mt-8 text-center md:hidden">
           <Link href="/blog">
             <Button variant="outline" data-testid="button-view-all-posts-mobile">
-              View All Articles
+              {t('blog.viewAllArticles')}
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </Link>

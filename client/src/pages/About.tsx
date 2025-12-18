@@ -3,8 +3,10 @@ import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Trophy, Award, Mail, Linkedin, Github, Phone, GraduationCap, Briefcase, Calendar } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function About() {
+    const { t } = useTranslation();
     const certifications = [
         {
             title: "LLM On Production",

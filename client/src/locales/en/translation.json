@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "blog": "Blog",
+    "chatbot": "Chatbot"
+  },
+  "hero": {
+    "headline1": "AI Engineer &",
+    "headline2": "Machine Learning Enthusiast",
+    "description": "I am an AI Engineer (Student) with a keen focus on Machine Learning and cutting-edge technologies like Generative AI.",
+    "buttonAbout": "About Me",
+    "buttonProjects": "View Projects"
+  },
+  "about": {
+    "pageTitle": "About Me",
+    "pageSubtitle": "My journey in Artificial Intelligence and Software Engineering.",
+    "whoIAmTitle": "Who I Am",
+    "bio1": "I am Bintang Ramadhan, an aspiring AI Engineer driven by the potential of Generative AI and Machine Learning. My focus goes beyond theory I love building intelligent systems that solve real-world problems.",
+    "bio2": "With a strong foundation in Python and the TensorFlow ecosystem, I specialize in developing scalable solutions involving Deep Learning, Computer Vision, and RAG (Retrieval-Augmented Generation). Whether it's fine-tuning LLMs or building API-driven applications with FastAPI, I aim to deliver software that creates tangible value.",
+    "bio3": "Currently, I am actively seeking internship opportunities or challenging collaborations where I can apply my skills, learn from experienced professionals, and contribute to innovative projects.",
+    "quickFactsTitle": "Quick Facts",
+    "fact1": "Based in Indonesia",
+    "fact2": "Focus: GenAI & Large Language Models",
+    "fact3": "Open to Internship / Junior Position",
+    "educationTitle": "Education",
+    "educationDegree": "Informatics",
+    "educationUniversity": "Universitas Pembangunan Nasional \"Veteran\" Yogyakarta",
+    "educationPeriod": "2024 - Present",
+    "educationGPA": "GPA: 3.77/4.0 | 2nd Semester",
+    "educationDescription": "Active Member of Linux Study Group (Focus on OS Architecture & Troubleshooting).",
+    "experienceTitle": "Experience",
+    "experienceRole": "AI Engineer Student / Freelancer",
+    "experienceCompany": "Self-Employed / Open to Work",
+    "experiencePeriod": "2024 - Present",
+    "experienceDescription": "Developing personal projects focused on Generative AI and RAG. Building full-stack applications with React and FastAPI.",
+    "certificationsTitle": "Certifications",
+    "awardsTitle": "Awards & Achievements",
+    "contactTitle": "Let's Connect",
+    "contactDescription": "I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions.",
+    "contactEmail": "Email Me",
+    "contactLinkedIn": "LinkedIn",
+    "contactGitHub": "GitHub"
+  },
+  "blog": {
+    "latestArticles": "Latest Articles",
+    "latestDescription": "Articles about Myself, Achivement, Tutorial, AI development, and the latest in technology",
+    "viewAll": "View All",
+    "viewAllArticles": "View All Articles",
+    "blogPageTitle": "Blog",
+    "blogPageDescription": "Articles about Myself, Achivement, Tutorial, AI development, and the latest in technology",
+    "featured": "Featured",
+    "backToBlog": "Back to Blog",
+    "postNotFound": "Post not found",
+    "postNotFoundDescription": "The article you are looking for does not exist."
+  },
+  "footer": {
+    "tagline": "Crafting digital experiences with passion and precision",
+    "quickLinks": "Quick Links",
+    "connect": "Connect",
+    "copyright": "© 2025 Bintang Ramadhan. All rights reserved."
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "home": "Beranda",
+    "about": "Tentang",
+    "projects": "Proyek",
+    "blog": "Blog",
+    "chatbot": "Chatbot"
+  },
+  "hero": {
+    "headline1": "AI Engineer &",
+    "headline2": "Machine Learning Enthusiast",
+    "description": "Saya adalah seorang AI Engineer (Mahasiswa) dengan fokus pada Machine Learning dan teknologi mutakhir seperti Generative AI.",
+    "buttonAbout": "Tentang Saya",
+    "buttonProjects": "Lihat Proyek"
+  },
+  "about": {
+    "pageTitle": "Tentang Saya",
+    "pageSubtitle": "Perjalanan saya di bidang Artificial Intelligence dan Software Engineering.",
+    "whoIAmTitle": "Siapa Saya",
+    "bio1": "Saya adalah Bintang Ramadhan, seorang calon AI Engineer yang didorong oleh potensi Generative AI dan Machine Learning. Fokus saya melampaui teori - saya suka membangun sistem cerdas yang menyelesaikan masalah dunia nyata.",
+    "bio2": "Dengan fondasi yang kuat dalam Python dan ekosistem TensorFlow, saya mengkhususkan diri dalam mengembangkan solusi yang dapat diskalakan yang melibatkan Deep Learning, Computer Vision, dan RAG (Retrieval-Augmented Generation). Baik itu fine-tuning LLM atau membangun aplikasi berbasis API dengan FastAPI, saya bertujuan untuk memberikan perangkat lunak yang menciptakan nilai nyata.",
+    "bio3": "Saat ini, saya aktif mencari peluang magang atau kolaborasi yang menantang di mana saya dapat menerapkan keterampilan saya, belajar dari profesional berpengalaman, dan berkontribusi pada proyek-proyek inovatif.",
+    "quickFactsTitle": "Fakta Singkat",
+    "fact1": "Berbasis di Indonesia",
+    "fact2": "Fokus: GenAI & Large Language Models",
+    "fact3": "Terbuka untuk Magang / Posisi Junior",
+    "educationTitle": "Pendidikan",
+    "educationDegree": "Informatika",
+    "educationUniversity": "Universitas Pembangunan Nasional \"Veteran\" Yogyakarta",
+    "educationPeriod": "2024 - Sekarang",
+    "educationGPA": "IPK: 3.77/4.0 | Semester 2",
+    "educationDescription": "Anggota aktif Linux Study Group (Fokus pada Arsitektur OS & Troubleshooting).",
+    "experienceTitle": "Pengalaman",
+    "experienceRole": "Mahasiswa AI Engineer / Freelancer",
+    "experienceCompany": "Wiraswasta / Terbuka untuk Bekerja",
+    "experiencePeriod": "2024 - Sekarang",
+    "experienceDescription": "Mengembangkan proyek pribadi yang berfokus pada Generative AI dan RAG. Membangun aplikasi full-stack dengan React dan FastAPI.",
+    "certificationsTitle": "Sertifikasi",
+    "awardsTitle": "Penghargaan & Prestasi",
+    "contactTitle": "Mari Terhubung",
+    "contactDescription": "Saya selalu terbuka untuk mendiskusikan proyek baru, ide kreatif, atau peluang untuk menjadi bagian dari visi Anda.",
+    "contactEmail": "Kirim Email",
+    "contactLinkedIn": "LinkedIn",
+    "contactGitHub": "GitHub"
+  },
+  "blog": {
+    "latestArticles": "Artikel Terbaru",
+    "latestDescription": "Artikel tentang Diri Saya, Pencapaian, Tutorial, pengembangan AI, dan teknologi terkini",
+    "viewAll": "Lihat Semua",
+    "viewAllArticles": "Lihat Semua Artikel",
+    "blogPageTitle": "Blog",
+    "blogPageDescription": "Artikel tentang Diri Saya, Pencapaian, Tutorial, pengembangan AI, dan teknologi terkini",
+    "featured": "Unggulan",
+    "backToBlog": "Kembali ke Blog",
+    "postNotFound": "Postingan tidak ditemukan",
+    "postNotFoundDescription": "Artikel yang Anda cari tidak ada."
+  },
+  "footer": {
+    "tagline": "Menciptakan pengalaman digital dengan passion dan presisi",
+    "quickLinks": "Tautan Cepat",
+    "connect": "Terhubung",
+    "copyright": "© 2025 Bintang Ramadhan. Hak cipta dilindungi."
+  }
+}

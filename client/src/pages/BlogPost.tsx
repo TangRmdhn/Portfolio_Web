@@ -6,9 +6,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 
 export default function BlogPost() {
     const [match, params] = useRoute("/blog/:id");
+    const { t, i18n } = useTranslation();
+    const currentLang = (i18n.language === 'id' ? 'id' : 'en') as 'en' | 'id';
 
     // If we are not on the correct route (shouldn't happen if properly routed), return null
     if (!match) return null;
@@ -21,10 +24,10 @@ export default function BlogPost() {
                 <Navigation />
                 <main className="flex-1 flex flex-col items-center justify-center pt-16">
                     <div className="text-center space-y-4">
-                        <h1 className="text-4xl font-bold">Post not found</h1>
-                        <p className="text-muted-foreground text-lg font-medium" style={{ marginBottom: "1rem" }}>The article you are looking for does not exist.</p>
+                        <h1 className="text-4xl font-bold">{t('blog.postNotFound')}</h1>
+                        <p className="text-muted-foreground text-lg font-medium" style={{ marginBottom: "1rem" }}>{t('blog.postNotFoundDescription')}</p>
                         <Link href="/blog" className="mt-4">
-                            <Button>Back to Blog</Button>
+                            <Button>{t('blog.backToBlog')}</Button>
                         </Link>
                     </div>
                 </main>
@@ -41,7 +44,7 @@ export default function BlogPost() {
                     {/* Back button */}
                     <Link href="/blog">
                         <Button variant="ghost" className="mb-8 pl-0 hover:pl-2 transition-all gap-2">
-                            <ArrowLeft className="h-4 w-4" /> Back to Blog
+                            <ArrowLeft className="h-4 w-4" /> {t('blog.backToBlog')}
                         </Button>
                     </Link>
 
@@ -51,7 +54,7 @@ export default function BlogPost() {
                             {post.category}
                         </Badge>
                         <h1 className="text-4xl md:text-5xl font-bold font-serif mb-6 leading-tight">
-                            {post.title}
+                            {post.title[currentLang]}
                         </h1>
                         <div className="flex items-center gap-6 text-muted-foreground">
                             <div className="flex items-center gap-2">
@@ -70,7 +73,7 @@ export default function BlogPost() {
                         {post.img ? (
                             <img
                                 src={post.img}
-                                alt={post.title}
+                                alt={post.title[currentLang]}
                                 className="w-full h-full object-cover"
                             />
                         ) : (
@@ -89,7 +92,7 @@ export default function BlogPost() {
                     {/* Content */}
                     <div
                         className="prose prose-lg dark:prose-invert max-w-none"
-                        dangerouslySetInnerHTML={{ __html: post.content }}
+                        dangerouslySetInnerHTML={{ __html: post.content[currentLang] }}
                     />
                 </article>
             </main>

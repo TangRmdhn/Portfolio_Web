@@ -3,17 +3,20 @@ import { Home, FolderOpen, FileText, MessageSquare, Menu, X, User } from "lucide
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { ModeToggle } from "./mode-toggle";
+import { LanguageToggle } from "./language-toggle";
+import { useTranslation } from "react-i18next";
 
 export default function Navigation() {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { t } = useTranslation();
 
   const navItems = [
-    { path: "/", label: "Home", icon: Home },
-    { path: "/about", label: "About", icon: User },
-    { path: "/projects", label: "Projects", icon: FolderOpen },
-    { path: "/blog", label: "Blog", icon: FileText },
-    { path: "/chatbot", label: "Chatbot", icon: MessageSquare },
+    { path: "/", label: t('nav.home'), icon: Home },
+    { path: "/about", label: t('nav.about'), icon: User },
+    { path: "/projects", label: t('nav.projects'), icon: FolderOpen },
+    { path: "/blog", label: t('nav.blog'), icon: FileText },
+    { path: "/chatbot", label: t('nav.chatbot'), icon: MessageSquare },
   ];
 
   return (
@@ -46,6 +49,7 @@ export default function Navigation() {
           </div>
 
           <div className="flex items-center gap-2">
+            <LanguageToggle />
             <ModeToggle />
             <Button
               size="icon"

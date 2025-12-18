@@ -3,37 +3,10 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowRight, ExternalLink, Github } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-
-import trainhubImg from "@/assets/trainhub.png";
-import whatsinnewsImg from "@/assets/whatsinnews.png";
-
-
-const projects = [
-  {
-    id: "1",
-    title: "TrainHub",
-    description: "Web application designed to help users create personalized weekly workout plans using the power of AI.",
-    technologies: ["FastAPI", "Gemini API", "Python"],
-    imageUrl: trainhubImg,
-    link: {
-      github: "https://github.com/TangRmdhn/TrainHub",
-      demo: "https://trainhub.web.id"
-    }
-  },
-  {
-    id: "2",
-    title: "WhatsInNews",
-    description: "RAG-based web app that allows users to summarize news articles and chat with the content.",
-    technologies: ["OpenAI API", "LangChain", "ChromaDB"],
-    imageUrl: whatsinnewsImg,
-    link: {
-      github: "https://github.com/TangRmdhn/WhatsInNews",
-      demo: "https://github.com/TangRmdhn/WhatsInNews"
-    }
-  },
-];
+import { projectData } from "@/lib/projectData";
 
 export default function ProjectHighlights() {
+  const highlightedProjects = projectData.filter(p => p.featured);
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-card">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
@@ -53,7 +26,7 @@ export default function ProjectHighlights() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-          {projects.map((project) => (
+          {highlightedProjects.map((project) => (
             <Card
               key={project.id}
               className="overflow-hidden hover-elevate transition-all duration-300 group cursor-pointer"
@@ -76,7 +49,7 @@ export default function ProjectHighlights() {
                       variant="secondary"
                       className="rounded-lg"
                       data-testid={`button-github-${project.id}`}
-                      onClick={() => window.open(project.link.github, "_blank")}
+                      onClick={() => window.open(project.links.github, "_blank")}
                     >
                       <Github className="w-4 h-4" />
                     </Button>
@@ -86,8 +59,8 @@ export default function ProjectHighlights() {
                       size="icon"
                       variant="secondary"
                       className="rounded-lg"
-                      data-testid={`button-live-${project.link.demo}`}
-                      onClick={() => window.open(project.link.demo, "_blank")}
+                      data-testid={`button-live-${project.links.demo}`}
+                      onClick={() => window.open(project.links.demo, "_blank")}
                     >
                       <ExternalLink className="w-4 h-4" />
                     </Button>

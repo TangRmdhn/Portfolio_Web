@@ -4,12 +4,16 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Clock, Calendar } from "lucide-react";
 import { Link } from "wouter";
+import { useTranslation } from "react-i18next";
 
 import { blogPosts } from "@/lib/blogData";
 
 
 
 export default function Blog() {
+  const { t, i18n } = useTranslation();
+  const currentLang = (i18n.language === 'id' ? 'id' : 'en') as 'en' | 'id';
+
   const featuredPost = blogPosts.find(post => post.featured);
   const regularPosts = blogPosts.filter(post => !post.featured || post.id !== featuredPost?.id);
 
@@ -19,9 +23,9 @@ export default function Blog() {
       <main className="flex-1 pt-16 md:pt-20">
         <div className="max-w-7xl mx-auto px-6 md:px-8 py-16 md:py-20">
           <div className="mb-12">
-            <h1 className="text-5xl md:text-6xl font-bold font-serif mb-4">Blog</h1>
+            <h1 className="text-5xl md:text-6xl font-bold font-serif mb-4">{t('blog.blogPageTitle')}</h1>
             <p className="text-lg text-muted-foreground max-w-3xl">
-              Articles about Myself, Achivement, Tutorial, AI development, and the latest in technology
+              {t('blog.blogPageDescription')}
             </p>
           </div>
 
@@ -33,14 +37,14 @@ export default function Blog() {
                     {featuredPost.img ? (
                       <img
                         src={featuredPost.img}
-                        alt={featuredPost.title}
+                        alt={featuredPost.title[currentLang]}
                         className="w-full h-full object-cover"
                       />
                     ) : (
                       <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60" />
                     )}
                     <Badge className="absolute top-6 left-6" data-testid="badge-featured">
-                      Featured
+                      {t('blog.featured')}
                     </Badge>
                   </div>
                   <div className="p-8 md:p-12 flex flex-col justify-center">
@@ -48,10 +52,10 @@ export default function Blog() {
                       {featuredPost.category}
                     </Badge>
                     <h2 className="text-3xl md:text-4xl font-bold font-serif mb-4">
-                      {featuredPost.title}
+                      {featuredPost.title[currentLang]}
                     </h2>
                     <p className="text-base text-muted-foreground mb-6">
-                      {featuredPost.excerpt}
+                      {featuredPost.excerpt[currentLang]}
                     </p>
                     <div className="flex items-center gap-4 text-sm text-muted-foreground">
                       <div className="flex items-center gap-1">
@@ -80,7 +84,7 @@ export default function Blog() {
                     {post.img ? (
                       <img
                         src={post.img}
-                        alt={post.title}
+                        alt={post.title[currentLang]}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     ) : (
@@ -91,9 +95,9 @@ export default function Blog() {
                     <Badge variant="secondary" className="text-xs uppercase tracking-wide mb-3" data-testid={`badge-category-${post.category.toLowerCase()}-${post.id}`}>
                       {post.category}
                     </Badge>
-                    <h3 className="text-xl font-semibold mb-2 line-clamp-2">{post.title}</h3>
+                    <h3 className="text-xl font-semibold mb-2 line-clamp-2">{post.title[currentLang]}</h3>
                     <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
-                      {post.excerpt}
+                      {post.excerpt[currentLang]}
                     </p>
                     <div className="flex items-center gap-4 text-xs text-muted-foreground">
                       <div className="flex items-center gap-1">
