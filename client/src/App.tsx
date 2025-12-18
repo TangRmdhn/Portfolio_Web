@@ -11,6 +11,7 @@ import BlogPost from "@/pages/BlogPost";
 import About from "@/pages/About";
 import NotFound from "@/pages/not-found";
 import ScrollToTop from "@/components/scroll-to-top";
+import SmoothScroll from "@/components/smooth-scroll";
 
 function Router() {
   return (
@@ -30,6 +31,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        <SmoothScroll />
         <ScrollToTop />
         <Toaster />
         <Router />
