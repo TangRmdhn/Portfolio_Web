@@ -1,5 +1,6 @@
 import studyIMG from '@/assets/learnAI.png';
 import ngajarIMG from '@/assets/ngajarIMG.png';
+import llmSizeIMG from '@/assets/llmSizeIMG.png';
 
 export interface BlogPost {
   id: string;
@@ -169,6 +170,124 @@ const Ngajar_EN = `
 </div>
 `;
 
+const LLM_Size_ID = `
+<div class="prose prose-lg dark:prose-invert max-w-none">
+  <p class="lead">Pernahkah kalian mencoba menjalankan model AI lokal seperti Llama-3 atau Mistral di laptop sendiri? Hal pertama yang mungkin mengejutkan adalah ukurannya. Untuk model "kecil" 8 Miliar parameter saja, kita harus mengunduh file sebesar 16 GB.</p>
+  
+  <p>Pertanyaan besarnya adalah: <strong>Apa sebenarnya isi file sebesar itu?</strong> Banyak yang mengira isinya adalah database teks, tapi kenyataannya, di dalamnya tidak ada satu pun kata yang bisa dibaca manusia.</p>
+
+  <h2>1. Salah Kaprah Terbesar: LLM Bukanlah SQL Database</h2>
+  <p>Sebelum masuk ke teknis, kita harus meluruskan satu hal fundamental. Banyak orang berpikir LLM bekerja seperti database pencari fakta.</p>
+  
+  <p>Jika kita menggunakan <strong>SQL Database</strong>, sifatnya adalah <em>Retrieval</em> (Pengambilan kembali). Datanya pasti dan tersimpan rapi:</p>
+  
+  <pre><code>SELECT * FROM history WHERE event = 'Independence Day Indonesia'
+-- Result: 17 August 1945</code></pre>
+
+  <p>Sebaliknya, LLM bukanlah tempat penyimpanan data, melainkan hasil dari <strong>Kompresi Pengetahuan (Lossy Compression)</strong>. Saat proses <em>training</em>, model "membaca" internet, tapi dia tidak menyimpannya ke dalam hard drive. Dia mempelajari <strong>pola</strong> hubungan antar kata. Jadi, file model AI itu berisi miliaran aturan matematika, bukan ensiklopedia.</p>
+
+  <h2>2. Bedah Anatomi: "Bobot" dan Matematika</h2>
+  <p>Jika file model itu dibedah, isinya hanyalah deretan angka desimal yang tak berujung. Angka-angka ini disebut <strong>Parameters</strong> atau <strong>Weights (Bobot)</strong>.</p>
+  
+  <p>Bayangkan fungsi matematika sederhana <code>f(x) = 2x</code>. Angka <strong>2</strong> di sana adalah parameter. LLM modern adalah fungsi matematika raksasa dengan miliaran parameter. Setiap bobot merepresentasikan kekuatan hubungan antar neuron buatan. Di sinilah "pengetahuan" itu disimpan sebagai nilai probabilitas statistik.</p>
+
+  <h2>3. Matematika di Balik Ukuran File (The GB Logic)</h2>
+  <p>Mengapa ukurannya bisa sampai bergiga-giga? Ini murni kalkulasi <em>Computer Science</em> dasar.</p>
+  
+  <p>Dalam komputasi, setiap angka desimal (Floating Point) membutuhkan ruang memori. Standar industri saat ini sering menggunakan presisi <strong>FP16 (2 Byte)</strong>. Mari kita hitung:</p>
+
+  <ul>
+    <li><strong>Jumlah Parameter:</strong> 8 Miliar (8.000.000.000)</li>
+    <li><strong>Ukuran per Parameter:</strong> 2 Byte (16-bit)</li>
+  </ul>
+
+  <blockquote>
+    "8 Miliar x 2 Byte = 16 Miliar Byte (sekitar 16 GB)."
+  </blockquote>
+
+  <p>Itulah jawabannya. File 16 GB itu secara harfiah berisi tumpukan 8 miliar angka desimal. Jika Anda menggunakan model 70B, maka ukurannya membengkak menjadi sekitar 140 GB. Tidak ada sihir, hanya matematika.</p>
+
+  <h2>4. Scaling Laws: Mengapa Lebih Besar = Lebih Pintar?</h2>
+  <p>Riset menunjukkan ada korelasi langsung antara jumlah parameter dengan kecerdasan model. Kita bisa membayangkannya seperti <strong>resolusi gambar</strong>:</p>
+  
+  <ul>
+    <li><strong>Model Kecil (Low Res):</strong> Ibarat gambar pecah-pecah (pixelated). Model hanya memahami konsep umum.</li>
+    <li><strong>Model Besar (High Res):</strong> Ibarat gambar 4K Ultra HD. Dengan miliaran parameter tambahan, model memiliki "ruang otak" untuk menangkap nuansa halus, sarkasme, dan logika yang rumit.</li>
+  </ul>
+
+  <h2>Kesimpulan</h2>
+  <p>LLM bukanlah database pencari fakta, melainkan sebuah artefak matematika—sebuah "otak beku" berukuran raksasa. Ukuran file yang besar adalah harga yang harus dibayar untuk menyimpan "kecerdasan" dalam bentuk matriks numerik.</p>
+
+  <hr />
+
+  <h3>Referensi & Bacaan Lanjut</h3>
+  <ul>
+    <li><a href="https://arxiv.org/abs/2001.08361" target="_blank" rel="noopener noreferrer">Scaling Laws for Neural Language Models (Kaplan et al., OpenAI)</a> - Paper dasar tentang kenapa parameter besar itu penting.</li>
+    <li><a href="https://huggingface.co/docs/accelerate/usage_guides/model_size_estimator" target="_blank" rel="noopener noreferrer">Hugging Face Model Memory Estimator</a> - Panduan menghitung kebutuhan VRAM.</li>
+    <li><a href="https://www.newyorker.com/tech/annals-of-technology/chatgpt-is-a-blurry-jpeg-of-the-web" target="_blank" rel="noopener noreferrer">ChatGPT Is a Blurry JPEG of the Web</a> - Analogi bagus tentang kompresi pengetahuan.</li>
+  </ul>
+</div>
+`;
+
+const LLM_Size_EN = `
+<div class="prose prose-lg dark:prose-invert max-w-none">
+  <p class="lead">Have you ever tried running a local AI model like Llama-3 or Mistral on your own laptop? The first thing that might surprise you is the size. For a "small" 8 Billion parameter model, you have to download a file around 16 GB in size.</p>
+  
+  <p>The big question is: <strong>What is actually inside that massive file?</strong> Many assume it contains a text database, but in reality, there isn't a single word inside readable by humans.</p>
+
+  <h2>1. The Biggest Misconception: LLM is Not an SQL Database</h2>
+  <p>Before diving into the technicals, let's clear up a fundamental point. Many people think LLMs work like a fact-retrieval database.</p>
+  
+  <p>If we use an <strong>SQL Database</strong>, it relies on <em>Retrieval</em>. The data is exact and stored neatly:</p>
+  
+  <pre><code>SELECT * FROM history WHERE event = 'Independence Day Indonesia'
+-- Result: 17 August 1945</code></pre>
+
+  <p>Conversely, an LLM is not a data storage; it is the result of <strong>Knowledge Compression (Lossy Compression)</strong>. During <em>training</em>, the model "reads" the internet, but it doesn't save it to a hard drive. It learns the <strong>patterns</strong> of relationships between words. So, that AI model file contains billions of mathematical rules, not an encyclopedia.</p>
+
+  <h2>2. Anatomy Breakdown: "Weights" and Math</h2>
+  <p>If we dissect the model file, it's just an endless sequence of decimal numbers. These numbers are called <strong>Parameters</strong> or <strong>Weights</strong>.</p>
+  
+  <p>Imagine a simple math function <code>f(x) = 2x</code>. The number <strong>2</strong> there is a parameter. Modern LLMs are giant mathematical functions with billions of parameters. Each weight represents the strength of the connection between artificial neurons. This is where "knowledge" is stored as statistical probability values.</p>
+
+  <h2>3. The Math Behind the File Size (The GB Logic)</h2>
+  <p>Why is the size in the gigabytes? This is pure basic <em>Computer Science</em> calculation.</p>
+  
+  <p>In computing, every decimal number (Floating Point) requires memory space. Industry standards currently use <strong>FP16 (2 Bytes)</strong> precision. Let's do the math:</p>
+
+  <ul>
+    <li><strong>Parameter Count:</strong> 8 Billion (8,000,000,000)</li>
+    <li><strong>Size per Parameter:</strong> 2 Bytes (16-bit)</li>
+  </ul>
+
+  <blockquote>
+    "8 Billion x 2 Bytes = 16 Billion Bytes (approx. 16 GB)."
+  </blockquote>
+
+  <p>That is the answer. That 16 GB file literally contains a stack of 8 billion decimal numbers. If you use a 70B model, the size swells to around 140 GB. There is no magic, only mathematics.</p>
+
+  <h2>4. Scaling Laws: Why Bigger = Smarter?</h2>
+  <p>Research shows a direct correlation between the number of parameters and model intelligence. We can think of it like <strong>image resolution</strong>:</p>
+  
+  <ul>
+    <li><strong>Small Model (Low Res):</strong> Like a pixelated image. The model only understands general concepts.</li>
+    <li><strong>Large Model (High Res):</strong> Like a 4K Ultra HD image. With billions of extra parameters, the model has the "brain space" to capture subtle nuances, sarcasm, and complex logic.</li>
+  </ul>
+
+  <h2>Conclusion</h2>
+  <p>An LLM is not a fact-finding database, but a mathematical artifact—a giant "frozen brain." The massive file size is the price we pay to store "intelligence" in the form of numeric matrices.</p>
+
+  <hr />
+
+  <h3>References & Further Reading</h3>
+  <ul>
+    <li><a href="https://arxiv.org/abs/2001.08361" target="_blank" rel="noopener noreferrer">Scaling Laws for Neural Language Models (Kaplan et al., OpenAI)</a> - The foundational paper on why parameter size matters.</li>
+    <li><a href="https://huggingface.co/docs/accelerate/usage_guides/model_size_estimator" target="_blank" rel="noopener noreferrer">Hugging Face Model Memory Estimator</a> - Guide to calculating VRAM requirements.</li>
+    <li><a href="https://www.newyorker.com/tech/annals-of-technology/chatgpt-is-a-blurry-jpeg-of-the-web" target="_blank" rel="noopener noreferrer">ChatGPT Is a Blurry JPEG of the Web</a> - A great analogy about knowledge compression.</li>
+  </ul>
+</div>
+`;
+
 export const blogPosts: BlogPost[] = [
   {
     id: "1",
@@ -210,4 +329,24 @@ export const blogPosts: BlogPost[] = [
     featured: true,
     img: ngajarIMG
   },
+  {
+    id: "3",
+    title: {
+      id: "Mengenal LLM: Ukuran File dan Parameter",
+      en: "Getting to Know LLM: File Sizes and Parameters"
+    },
+    excerpt: {
+      id: "Pernahkah Anda terkejut melihat ukuran model AI yang mencapai bergiga-giga byte? Artikel ini membedah alasan teknis di balik ukuran tersebut dan meluruskan salah kaprah bahwa LLM adalah sebuah database.",
+      en: "Have you ever been shocked by the massive file size of AI models? This article breaks down the technical reasons behind those gigabytes and debunks the misconception that LLMs are databases."
+    },
+    content: {
+      id: LLM_Size_ID,
+      en: LLM_Size_EN
+    },
+    category: "Artificial Intelligence",
+    readTime: "5 min read",
+    publishedAt: "2026-01-02",
+    featured: true,
+    img: llmSizeIMG // Pastikan variable ini sudah di-import di atas
+  }
 ];
