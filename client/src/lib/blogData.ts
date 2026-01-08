@@ -1,6 +1,7 @@
 import studyIMG from '@/assets/learnAI.png';
 import ngajarIMG from '@/assets/ngajarIMG.png';
 import llmSizeIMG from '@/assets/llmSizeIMG.png';
+import legalFlowIMG from '@/assets/legalFlowIMG.png';
 
 export interface BlogPost {
   id: string;
@@ -288,6 +289,104 @@ const LLM_Size_EN = `
 </div>
 `;
 
+const LegalAgent_ID = `
+<div class="prose prose-lg dark:prose-invert max-w-none">
+  <p class="lead">Dalam euforia penggunaan <em>Large Language Models</em> (LLM), teknik <strong>RAG (Retrieval-Augmented Generation)</strong> sering dianggap sebagai solusi pamungkas. Alurnya sederhana: User Bertanya &rarr; Cari Dokumen &rarr; Jawab. Namun, benarkah sesederhana itu?</p>
+  
+  <p>Dalam studi kasus pengembangan <strong>LegalFlow</strong>, kami menemukan bahwa pendekatan RAG linier memiliki cacat fatal, terutama untuk domain hukum yang kompleks. Artikel ini akan membedah mengapa kami beralih ke arsitektur <strong>ReAct Agent</strong> menggunakan <strong>LangGraph</strong>.</p>
+
+  <h2>1. Jebakan Linear RAG (The Linear Trap)</h2>
+  <p>Masalah utama dari arsitektur RAG tradisional adalah sifatnya yang <strong>kaku dan deterministik</strong>. Sistem dipaksa untuk melakukan pencarian data (<em>retrieval</em>) untuk <em>setiap</em> input pengguna, tanpa mempedulikan konteksnya.</p>
+  
+  <p>Bayangkan skenario berikut:</p>
+  <ul>
+    <li><strong>User:</strong> "Halo, selamat pagi."</li>
+    <li><strong>Linear RAG:</strong> Sistem akan memaksa melakukan <em>vector search</em> untuk kata "Selamat pagi" di database UU. Hasilnya? Potongan teks tidak relevan diambil, membingungkan LLM, dan memboroskan token.</li>
+  </ul>
+
+  <p>Linear RAG tidak memiliki kemampuan untuk <strong>memilih</strong>. Ia hanyalah sebuah pipa (pipeline) yang buta.</p>
+
+  <h2>2. Solusi: Memberikan "Otak" dengan ReAct Agent</h2>
+  <p>Untuk mengatasi hal ini, kami mengimplementasikan pola <strong>ReAct (Reason + Act)</strong>. Berbeda dengan <em>chain</em> biasa, sebuah Agen memiliki kemampuan <strong>Reasoning</strong> sebelum bertindak.</p>
+  
+  <p>Di dalam kode <code>agent.py</code>, kami mendefinisikan <em>conditional edge</em> yang cerdas:</p>
+  
+  <pre><code>// Logika pengambilan keputusan agen
+workflow.add_conditional_edges("agent", tools_condition)</code></pre>
+
+  <p>Inilah yang mengubah permainan. Agen (Gemini-2.5) kini bisa berpikir dinamis. Jika user hanya berkata "Terima kasih", agen akan memutuskan untuk <strong>tidak memanggil tool apapun</strong>. Ini meningkatkan efisiensi latensi dan biaya secara signifikan.</p>
+
+  <h2>3. Strategi Pencarian yang Adaptif</h2>
+  <p>Lebih jauh lagi, agen tidak hanya memilih <em>antara</em> mencari atau tidak, tapi juga <em>bagaimana</em> cara mencarinya. Kami menyediakan dua strategi berbeda:</p>
+
+  <ul>
+    <li><strong>Pencarian Presisi (<code>search_specific_clause</code>):</strong> Digunakan saat agen mendeteksi pengguna menyebut nomor pasal spesifik (misal: "Pasal 27"). Agen akan menggunakan filter metadata untuk akurasi 100%.</li>
+    <li><strong>Pencarian Konsep (<code>search_legal_concept</code>):</strong> Digunakan untuk pertanyaan abstrak (misal: "Apa sanksi penyebaran hoax?"). Agen menggunakan pencarian semantik untuk memahami konteks.</li>
+  </ul>
+
+  <h2>4. Implementasi dengan LangGraph</h2>
+  <p>Kami menggunakan <strong>LangGraph</strong> untuk memvisualisasikan alur pikir ini sebagai sebuah graf (<em>state machine</em>):</p>
+  
+  <ol>
+    <li><strong>Node Agent:</strong> Menerima pesan, berpikir, dan memutuskan langkah selanjutnya.</li>
+    <li><strong>Node Tools:</strong> Hanya dieksekusi JIKA agen merasa perlu.</li>
+    <li><strong>Loop:</strong> Jika hasil pencarian tool belum memuaskan, agen bisa memutuskan untuk mencari lagi atau mensintesis jawaban.</li>
+  </ol>
+
+  <h2>Kesimpulan</h2>
+  <p>Beralih dari Linear RAG ke <em>Agentic Workflow</em> bukan sekadar tren, melainkan kebutuhan untuk menciptakan aplikasi yang <em>robust</em>. Dengan memberikan kemampuan "memilih" kepada AI, LegalFlow tidak hanya menjadi mesin pencari hukum, melainkan konsultan hukum virtual yang tahu kapan harus diam, dan kapan harus membuka buku undang-undang.</p>
+</div>
+`;
+
+const LegalAgent_EN = `
+<div class="prose prose-lg dark:prose-invert max-w-none">
+  <p class="lead">In the hype of <em>Large Language Models</em> (LLM), <strong>Retrieval-Augmented Generation (RAG)</strong> is often hailed as the ultimate solution. The flow is simple: User Asks &rarr; Search Documents &rarr; Answer. But is it really that simple?</p>
+  
+  <p>In the <strong>LegalFlow</strong> development case study, we found that linear RAG approaches have fatal flaws, especially for complex legal domains. This article breaks down why we switched to a <strong>ReAct Agent</strong> architecture using <strong>LangGraph</strong>.</p>
+
+  <h2>1. The Linear Trap</h2>
+  <p>The main problem with traditional RAG architecture is its <strong>rigid and deterministic</strong> nature. The system is forced to perform data retrieval for <em>every</em> user input, regardless of context.</p>
+  
+  <p>Imagine the following scenario:</p>
+  <ul>
+    <li><strong>User:</strong> "Hello, good morning."</li>
+    <li><strong>Linear RAG:</strong> The system forces a <em>vector search</em> for "Good morning" in the law database. The result? Irrelevant text chunks are retrieved, confusing the LLM, and wasting tokens.</li>
+  </ul>
+
+  <p>Linear RAG lacks the ability to <strong>choose</strong>. It is merely a blind pipeline.</p>
+
+  <h2>2. The Solution: Giving It a "Brain" with ReAct Agent</h2>
+  <p>To overcome this, we implemented the <strong>ReAct (Reason + Act)</strong> pattern. Unlike a standard <em>chain</em>, an Agent has <strong>Reasoning</strong> capabilities before acting.</p>
+  
+  <p>In our <code>agent.py</code> code, we define smart <em>conditional edges</em>:</p>
+  
+  <pre><code>// Agent decision logic
+workflow.add_conditional_edges("agent", tools_condition)</code></pre>
+
+  <p>This is a game-changer. The Agent (Gemini-2.5) can now think dynamically. If a user simply says "Thank you," the agent decides <strong>not to call any tools</strong>. This significantly improves latency and cost efficiency.</p>
+
+  <h2>3. Adaptive Search Strategies</h2>
+  <p>Furthermore, the agent doesn't just choose <em>whether</em> to search, but also <em>how</em> to search. We provide two different strategies:</p>
+
+  <ul>
+    <li><strong>Precision Search (<code>search_specific_clause</code>):</strong> Used when the agent detects the user mentioning a specific article number (e.g., "Article 27"). The agent uses metadata filtering for 100% accuracy.</li>
+    <li><strong>Concept Search (<code>search_legal_concept</code>):</strong> Used for abstract questions (e.g., "What are the sanctions for spreading hoaxes?"). The agent uses semantic search to understand context.</li>
+  </ul>
+
+  <h2>4. Implementation with LangGraph</h2>
+  <p>We use <strong>LangGraph</strong> to visualize this thought process as a graph (<em>state machine</em>):</p>
+  
+  <ol>
+    <li><strong>Agent Node:</strong> Receives messages, thinks, and decides the next step.</li>
+    <li><strong>Tools Node:</strong> Executed ONLY if the agent deems it necessary.</li>
+    <li><strong>Loop:</strong> If the tool search results are unsatisfactory, the agent can decide to search again or synthesize an answer.</li>
+  </ol>
+
+  <h2>Conclusion</h2>
+  <p>Moving from Linear RAG to an <em>Agentic Workflow</em> is not just a trend, but a necessity for creating robust applications. By giving AI the ability to "choose," LegalFlow becomes not just a legal search engine, but a virtual legal consultant that knows when to speak casually, and when to open the law books.</p>
+</div>
+`;
+
 export const blogPosts: BlogPost[] = [
   {
     id: "1",
@@ -306,7 +405,7 @@ export const blogPosts: BlogPost[] = [
     category: "AI",
     readTime: "6 min read",
     publishedAt: "2025-12-07",
-    featured: true,
+    featured: false,
     img: studyIMG
   },
   {
@@ -347,6 +446,26 @@ export const blogPosts: BlogPost[] = [
     readTime: "5 min read",
     publishedAt: "2026-01-02",
     featured: true,
-    img: llmSizeIMG // Pastikan variable ini sudah di-import di atas
+    img: llmSizeIMG
+  },
+  {
+    id: "4",
+    title: {
+      id: "Linear RAG vs AI Agent: Jangan Biarkan Chatbot Anda 'Buta'",
+      en: "Linear RAG vs AI Agent: Don't Let Your Chatbot Fly Blind"
+    },
+    excerpt: {
+      id: "Mengapa sekadar menempelkan database ke LLM (Linear RAG) seringkali gagal? Pelajari bagaimana arsitektur Agentic Workflow membuat aplikasi hukum menjadi lebih cerdas dan efisien.",
+      en: "Why does simply attaching a database to an LLM (Linear RAG) often fail? Learn how Agentic Workflow architecture makes legal applications smarter and more efficient."
+    },
+    content: {
+      id: LegalAgent_ID,
+      en: LegalAgent_EN
+    },
+    category: "AI AGENT",
+    readTime: "7 min read",
+    publishedAt: "2026-01-08",
+    featured: true,
+    img: legalFlowIMG
   }
 ];

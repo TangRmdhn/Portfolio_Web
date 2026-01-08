@@ -7,6 +7,7 @@ import animeclassificationImg from "@/assets/anime.png";
 import heartattackclassificationImg from "@/assets/heart.png";
 import housepricepredictionImg from "@/assets/house.png";
 import sentimentalanalysisImg from "@/assets/sentimental.png";
+import legalflowsImg from "@/assets/legalflows.png";
 
 export interface Project {
     id: string;
@@ -42,7 +43,7 @@ export const projectData: Project[] = [
         description: "RAG-based web app that allows users to summarize news articles and chat with the content.",
         technologies: ["OpenAI API", "LangChain", "ChromaDB"],
         category: "AI Integration",
-        featured: true,
+        featured: false,
         links: {
             github: "https://github.com/TangRmdhn/WhatsInNews",
             demo: "https://github.com/TangRmdhn/WhatsInNews"
@@ -139,5 +140,18 @@ export const projectData: Project[] = [
             demo: "https://github.com/TangRmdhn/SentimentAnalysis"
         },
         imageUrl: sentimentalanalysisImg,
+    },
+    {
+        id: "10",
+        title: "LegalFlows",
+        description: "An autonomous agent specialized in UU ITE, PDP, and PSE regulations. Validate your product features against Indonesian law before release.",
+        technologies: ["AI Agent", "LangChain", "LangGraph"],
+        category: "AI Agent",
+        featured: true,
+        links: {
+            github: "https://github.com/TangRmdhn/LegalFlow",
+            demo: "https://legalflows.vercel.app/"
+        },
+        imageUrl: legalflowsImg,
     },
 ];
