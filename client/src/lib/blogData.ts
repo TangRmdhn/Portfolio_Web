@@ -2,6 +2,7 @@ import studyIMG from '@/assets/learnAI.png';
 import ngajarIMG from '@/assets/ngajarIMG.png';
 import llmSizeIMG from '@/assets/llmSizeIMG.png';
 import legalFlowIMG from '@/assets/legalFlowIMG.png';
+import memoryIMG from '@/assets/memory.png';
 
 export interface BlogPost {
   id: string;
@@ -387,6 +388,104 @@ workflow.add_conditional_edges("agent", tools_condition)</code></pre>
 </div>
 `;
 
+const AgentMemory_ID = `
+<div class="prose prose-lg dark:prose-invert max-w-none">
+  <p class="lead">Banyak orang mengira ketika berbincang dengan ChatGPT atau AI Agent, model tersebut memiliki "otak" yang menyimpan percakapan kita secara <em>real-time</em>. Padahal, kenyataan teknisnya jauh lebih sederhana—dan sedikit lebih rumit untuk dikelola oleh developer.</p>
+  
+  <p>Dalam artikel ini, kita akan membedah konsep teknis di balik memori AI, mengapa <em>Large Language Models</em> (LLM) sebenarnya bersifat <em>stateless</em>, dan bagaimana kita merekayasa sistem agar memiliki ingatan.</p>
+
+  <h2>1. The Stateless Reality</h2>
+  <p>Secara fundamental, interaksi dengan LLM (seperti GPT-4, Claude, atau Llama) dilakukan melalui API call. Sifat dasar dari protokol ini adalah <strong>Stateless</strong>.</p>
+  
+  <p>Artinya, model tidak menyimpan <em>state</em> (keadaan) dari satu <em>request</em> ke <em>request</em> berikutnya. Jika Anda mengirimkan pesan "Halo" sekarang, dan lima menit kemudian mengirimkan "Siapa nama saya?", model tersebut memperlakukan kedua pesan itu sebagai dua kejadian terpisah.</p>
+
+  <h2>2. The Illusion: Context Injection</h2>
+  <p>Jika modelnya <em>stateless</em>, bagaimana chatbot bisa menjawab pertanyaan "Siapa nama saya?" dengan benar? Jawabannya ada pada sisi <em>client</em> (aplikasi kita).</p>
+
+  <p>Sebagai <em>AI Engineer</em>, kita harus menyimpan seluruh riwayat percakapan dalam sebuah variabel, dan mengirimkan ulang <strong>seluruh</strong> riwayat tersebut setiap kali pengguna mengirim pesan baru.</p>
+  
+  <pre><code># Konsep "Memori" dalam Python
+chat_history = []
+
+def chat_with_ai(user_input):
+    # 1. Tambah input ke list
+    chat_history.append(f"User: {user_input}")
+    
+    # 2. INJEKSI seluruh history ke prompt
+    full_prompt = "\n".join(chat_history)
+    
+    # 3. Kirim ulang semua ke AI
+    response = llm.predict(full_prompt)
+    
+    return response</code></pre>
+
+  <p>Jadi, beban komputasi untuk "mengingat" sebenarnya ada pada manipulasi <em>string</em> yang kita lakukan sebelum memanggil API.</p>
+
+  <h2>3. Tantangan: Context Window Limit</h2>
+  <p>Metode <em>brute-force</em> (mengirim semua chat) memiliki kelemahan fatal: biaya token dan batas <em>Context Window</em>. Jika chat terlalu panjang, aplikasi akan error atau biaya API membengkak.</p>
+
+  <h2>4. Solusi: Strategi Manajemen Memori</h2>
+  <p>Di sinilah peran framework seperti <strong>LangChain</strong> atau logika kustom di <strong>LangGraph</strong>. Kita bisa menggunakan beberapa strategi:</p>
+
+  <ul>
+    <li><strong>Conversation Buffer Window:</strong> Hanya menyimpan $K$ percakapan terakhir (Sliding Window). Hemat memori tapi AI bisa "lupa" topik awal.</li>
+    <li><strong>Conversation Summary:</strong> Menggunakan LLM lain untuk merangkum percakapan lama menjadi ringkasan padat, sehingga menghemat token tanpa kehilangan konteks utama.</li>
+  </ul>
+
+  <h2>Kesimpulan</h2>
+  <p>Membangun "Memori" pada AI Agent adalah tentang menyeimbangkan konteks dan efisiensi resource. Pemilihan strategi memori yang tepat adalah kunci membangun aplikasi AI yang <em>robust</em>.</p>
+</div>
+`;
+
+const AgentMemory_EN = `
+<div class="prose prose-lg dark:prose-invert max-w-none">
+  <p class="lead">Many people assume that when chatting with ChatGPT or an AI Agent, the model has a "brain" that stores our conversation in <em>real-time</em>. In reality, the technical truth is much simpler—and a bit trickier for developers to manage.</p>
+  
+  <p>In this article, we will dissect the technical concept behind AI memory, why <em>Large Language Models</em> (LLMs) are actually <em>stateless</em>, and how we engineer systems to have "memory."</p>
+
+  <h2>1. The Stateless Reality</h2>
+  <p>Fundamentally, interactions with LLMs (like GPT-4, Claude, or Llama) happen via API calls. The basic nature of this protocol is <strong>Stateless</strong>.</p>
+  
+  <p>This means the model does not save the <em>state</em> from one request to the next. If you send "Hello" now, and five minutes later send "What is my name?", the model treats these as two completely separate, unrelated events.</p>
+
+  <h2>2. The Illusion: Context Injection</h2>
+  <p>If the model is <em>stateless</em>, how can a chatbot correctly answer "What is my name?" The answer lies on the <em>client-side</em> (our application).</p>
+
+  <p>As <em>AI Engineers</em>, we must store the entire conversation history in a variable and re-send the <strong>entire</strong> history every time the user sends a new message.</p>
+  
+  <pre><code># The concept of "Memory" in Python
+chat_history = []
+
+def chat_with_ai(user_input):
+    # 1. Add input to list
+    chat_history.append(f"User: {user_input}")
+    
+    # 2. INJECT entire history into prompt
+    full_prompt = "\n".join(chat_history)
+    
+    # 3. Resend everything to AI
+    response = llm.predict(full_prompt)
+    
+    return response</code></pre>
+
+  <p>So, the computational burden of "remembering" actually lies in the <em>string</em> manipulation we perform before calling the API.</p>
+
+  <h2>3. The Challenge: Context Window Limit</h2>
+  <p>The <em>brute-force</em> method (sending all chats) has a fatal flaw: token costs and <em>Context Window</em> limits. If the chat gets too long, the application will crash or API costs will skyrocket.</p>
+
+  <h2>4. The Solution: Memory Management Strategies</h2>
+  <p>This is where frameworks like <strong>LangChain</strong> or custom logic in <strong>LangGraph</strong> come in. We can use several strategies:</p>
+
+  <ul>
+    <li><strong>Conversation Buffer Window:</strong> Only stores the last $K$ conversations (Sliding Window). Saves memory, but the AI might "forget" early topics.</li>
+    <li><strong>Conversation Summary:</strong> Uses another LLM to summarize old conversations into a concise summary, saving tokens without losing the main context.</li>
+  </ul>
+
+  <h2>Conclusion</h2>
+  <p>Building "Memory" in AI Agents is about balancing context and resource efficiency. Choosing the right memory strategy is key to building robust AI applications.</p>
+</div>
+`;
+
 export const blogPosts: BlogPost[] = [
   {
     id: "1",
@@ -467,5 +566,25 @@ export const blogPosts: BlogPost[] = [
     publishedAt: "2026-01-08",
     featured: true,
     img: legalFlowIMG
+  },
+    {
+    id: "5",
+    title: {
+      id: "Stateless to Stateful: Membedah Cara Kerja 'Memori' pada AI Agent",
+      en: "Stateless to Stateful: Dissecting How 'Memory' Works in AI Agents"
+    },
+    excerpt: {
+      id: "Pernah bingung kenapa AI bisa ingat chat sebelumnya padahal API-nya stateless? Artikel ini membongkar trik 'Context Injection' dan strategi manajemen memori agar hemat token.",
+      en: "Ever wondered how AI remembers past chats even though the API is stateless? This article debunks the 'Context Injection' trick and memory management strategies to save tokens."
+    },
+    content: {
+      id: AgentMemory_ID,
+      en: AgentMemory_EN
+    },
+    category: "AI AGENT",
+    readTime: "6 min read",
+    publishedAt: "2026-01-13",
+    featured: false, 
+    img: memoryIMG // Pastikan variable ini sudah di-import
   }
 ];
