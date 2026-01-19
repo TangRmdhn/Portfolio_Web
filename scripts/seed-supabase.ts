@@ -1,21 +1,130 @@
-import studyIMG from '@/assets/learnAI.png';
-import ngajarIMG from '@/assets/ngajarIMG.png';
-import llmSizeIMG from '@/assets/llmSizeIMG.png';
-import legalFlowIMG from '@/assets/legalFlowIMG.png';
-import memoryIMG from '@/assets/memory.png';
+import { createClient } from '@supabase/supabase-js';
+import * as dotenv from 'dotenv';
+import path from 'path';
 
-export interface BlogPost {
-  id: string;
-  title: { en: string; id: string };
-  excerpt: { en: string; id: string };
-  content: { en: string; id: string };
-  category: string;
-  readTime: string;
-  publishedAt: string;
-  featured: boolean;
-  img: string;
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Load env vars from .env file in root
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+
+const supabaseUrl = process.env.VITE_SUPABASE_URL;
+const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+    console.error('Missing VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY');
+    process.exit(1);
 }
 
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+const projects = [
+    {
+        title: "TrainHub",
+        description: "Web application designed to help users create personalized weekly workout plans using the power of AI.",
+        technologies: ["FastAPI", "Gemini API", "Python"],
+        category: "AI Integration",
+        featured: true,
+        github_link: "https://github.com/TangRmdhn/TrainHub",
+        demo_link: "https://trainhub.web.id",
+        image_url: "https://placehold.co/600x400"
+    },
+    {
+        title: "WhatsInNews",
+        description: "RAG-based web app that allows users to summarize news articles and chat with the content.",
+        technologies: ["OpenAI API", "LangChain", "ChromaDB"],
+        category: "AI Integration",
+        featured: false,
+        github_link: "https://github.com/TangRmdhn/WhatsInNews",
+        demo_link: "https://github.com/TangRmdhn/WhatsInNews",
+        image_url: "https://placehold.co/600x400"
+    },
+    {
+        title: "CodeGrader",
+        description: "A web application to automatically grade programming assignments using Groq AI.",
+        technologies: ["Groq API", "PyPDF", "Streamlit"],
+        category: "AI Integration",
+        featured: false,
+        github_link: "https://github.com/TangRmdhn/CodeGrader",
+        demo_link: "https://penilaikode.streamlit.app",
+        image_url: "https://placehold.co/600x400"
+    },
+    {
+        title: "MyFirstRAG",
+        description: "First end-to-end implementation project for learning and understanding Retrieval-Augmented Generation (RAG).",
+        technologies: ["RAG", "OpenAI API", "Streamlit"],
+        category: "AI Integration",
+        featured: false,
+        github_link: "https://github.com/TangRmdhn/MyFirstRAG/tree/main",
+        demo_link: "https://github.com/TangRmdhn/MyFirstRAG/tree/main",
+        image_url: "https://placehold.co/600x400"
+    },
+    {
+        title: "FlowerClassification",
+        description: "Flower classification notebook using transfer learning and deep learning.",
+        technologies: ["Transfer Learning", "Deep Learning", "Python"],
+        category: "Deep Learning",
+        featured: false,
+        github_link: "https://github.com/TangRmdhn/FlowersClassification",
+        demo_link: "https://github.com/TangRmdhn/FlowersClassification",
+        image_url: "https://placehold.co/600x400"
+    },
+    {
+        title: "AnimeRecomendation",
+        description: "Anime recomendation using NLP and Machine Learning.",
+        technologies: ["NLP", "Machine Learning", "Python"],
+        category: "Machine Learning",
+        featured: false,
+        github_link: "https://github.com/TangRmdhn/Anime-Recommendation",
+        demo_link: "https://github.com/TangRmdhn/Anime-Recommendation",
+        image_url: "https://placehold.co/600x400"
+    },
+    {
+        title: "HousePricePrediction",
+        description: "House price prediction using Machine Learning.",
+        technologies: ["Machine Learning", "Python", "Regression"],
+        category: "Machine Learning",
+        featured: false,
+        github_link: "https://github.com/TangRmdhn/HousePricePrediction/tree/main",
+        demo_link: "https://github.com/TangRmdhn/HousePricePrediction/tree/main",
+        image_url: "https://placehold.co/600x400"
+    },
+    {
+        title: "HeartAttackClassification",
+        description: "Heart attack classification using Machine Learning.",
+        technologies: ["Machine Learning", "Python", "Classification"],
+        category: "Machine Learning",
+        featured: false,
+        github_link: "https://github.com/TangRmdhn/HeartAttackClassification/tree/main",
+        demo_link: "https://github.com/TangRmdhn/HeartAttackClassification/tree/main",
+        image_url: "https://placehold.co/600x400"
+    },
+    {
+        title: "SentimentalAnalysis",
+        description: "Sentimental analysis using Machine Learning & NLP.",
+        technologies: ["Machine Learning", "Python", "NLP"],
+        category: "Machine Learning",
+        featured: false,
+        github_link: "https://github.com/TangRmdhn/SentimentAnalysis",
+        demo_link: "https://github.com/TangRmdhn/SentimentAnalysis",
+        image_url: "https://placehold.co/600x400"
+    },
+    {
+        title: "LegalFlows",
+        description: "An autonomous agent specialized in UU ITE, PDP, and PSE regulations. Validate your product features against Indonesian law before release.",
+        technologies: ["AI Agent", "LangChain", "LangGraph"],
+        category: "AI Agent",
+        featured: true,
+        github_link: "https://github.com/TangRmdhn/LegalFlow",
+        demo_link: "https://legalflows.vercel.app/",
+        image_url: "https://placehold.co/600x400"
+    },
+];
+
+// Blog data extracted
 const HowTosStudyWithAI_ID = `
 <div class="prose prose-lg dark:prose-invert max-w-none">
     <p class="lead">Seringkali kita mendengar anggapan sinis bahwa <strong>Artificial Intelligence (AI)</strong> adalah musuh bagi dunia pendidikan. Banyak yang khawatir kehadiran AI hanya akan memicu kemalasan, menciptakan generasi mahasiswa yang ingin serba instan.</p>
@@ -486,105 +595,120 @@ def chat_with_ai(user_input):
 </div>
 `;
 
-export const blogPosts: BlogPost[] = [
-  {
-    id: "1",
-    title: {
-      id: "Cara Saya Belajar Lebih Efektif Menggunakan AI",
-      en: "How I Study More Effectively Using AI"
-    },
-    excerpt: {
-      id: "Seringkali kita mendengar anggapan bahwa kecerdasan buatan atau Artificial Intelligence (AI) berdampak buruk bagi proses pembelajaran. Banyak yang khawatir bahwa kehadiran AI hanya akan memicu kemalasan, di mana seseorang bisa menyelesaikan tugas secara instan tanpa benar-benar memahami isinya.",
-      en: "We often hear assumptions that Artificial Intelligence (AI) has a negative impact on the learning process. Many worry that AI's presence will only trigger laziness, where someone can complete tasks instantly without truly understanding the content."
-    },
-    content: {
-      id: HowTosStudyWithAI_ID,
-      en: HowTosStudyWithAI_EN
-    },
-    category: "AI",
-    readTime: "6 min read",
-    publishedAt: "2025-12-07",
-    featured: false,
-    img: studyIMG
-  },
-  {
-    id: "2",
-    title: {
-      id: "Mengubah Ragu Menjadi Dampak: Pengalaman Saya Mengajar Teman Satu Angkatan",
-      en: "Turning Doubt into Impact: My Experience Teaching Peers"
-    },
-    excerpt: {
-      id: "Pengalaman mengajar Struktur Data di IF Learning yang mengubah perspektif saya sepenuhnya.",
-      en: "My experience teaching Data Structures at IF Learning that completely changed my perspective."
-    },
-    content: {
-      id: Ngajar_ID,
-      en: Ngajar_EN
-    },
-    category: "Personal Development",
-    readTime: "6 min read",
-    publishedAt: "2025-12-07",
-    featured: true,
-    img: ngajarIMG
-  },
-  {
-    id: "3",
-    title: {
-      id: "Mengenal LLM: Ukuran File dan Parameter",
-      en: "Getting to Know LLM: File Sizes and Parameters"
-    },
-    excerpt: {
-      id: "Pernahkah Anda terkejut melihat ukuran model AI yang mencapai bergiga-giga byte? Artikel ini membedah alasan teknis di balik ukuran tersebut dan meluruskan salah kaprah bahwa LLM adalah sebuah database.",
-      en: "Have you ever been shocked by the massive file size of AI models? This article breaks down the technical reasons behind those gigabytes and debunks the misconception that LLMs are databases."
-    },
-    content: {
-      id: LLM_Size_ID,
-      en: LLM_Size_EN
-    },
-    category: "Artificial Intelligence",
-    readTime: "5 min read",
-    publishedAt: "2026-01-02",
-    featured: true,
-    img: llmSizeIMG
-  },
-  {
-    id: "4",
-    title: {
-      id: "Linear RAG vs AI Agent: Jangan Biarkan Chatbot Anda 'Buta'",
-      en: "Linear RAG vs AI Agent: Don't Let Your Chatbot Fly Blind"
-    },
-    excerpt: {
-      id: "Mengapa sekadar menempelkan database ke LLM (Linear RAG) seringkali gagal? Pelajari bagaimana arsitektur Agentic Workflow membuat aplikasi hukum menjadi lebih cerdas dan efisien.",
-      en: "Why does simply attaching a database to an LLM (Linear RAG) often fail? Learn how Agentic Workflow architecture makes legal applications smarter and more efficient."
-    },
-    content: {
-      id: LegalAgent_ID,
-      en: LegalAgent_EN
-    },
-    category: "AI AGENT",
-    readTime: "7 min read",
-    publishedAt: "2026-01-08",
-    featured: true,
-    img: legalFlowIMG
-  },
+const blogs = [
     {
-    id: "5",
-    title: {
-      id: "Stateless to Stateful: Membedah Cara Kerja 'Memori' pada AI Agent",
-      en: "Stateless to Stateful: Dissecting How 'Memory' Works in AI Agents"
+        title: {
+            id: "Cara Saya Belajar Lebih Efektif Menggunakan AI",
+            en: "How I Study More Effectively Using AI"
+        },
+        excerpt: {
+            id: "Seringkali kita mendengar anggapan bahwa kecerdasan buatan atau Artificial Intelligence (AI) berdampak buruk bagi proses pembelajaran. Banyak yang khawatir bahwa kehadiran AI hanya akan memicu kemalasan, di mana seseorang bisa menyelesaikan tugas secara instan tanpa benar-benar memahami isinya.",
+            en: "We often hear assumptions that Artificial Intelligence (AI) has a negative impact on the learning process. Many worry that AI's presence will only trigger laziness, where someone can complete tasks instantly without truly understanding the content."
+        },
+        content: {
+            id: HowTosStudyWithAI_ID,
+            en: HowTosStudyWithAI_EN
+        },
+        category: "AI",
+        readTime: "6 min read",
+        publishedAt: "2025-12-07",
+        featured: false,
+        image_url: "https://placehold.co/600x400"
     },
-    excerpt: {
-      id: "Pernah bingung kenapa AI bisa ingat chat sebelumnya padahal API-nya stateless? Artikel ini membongkar trik 'Context Injection' dan strategi manajemen memori agar hemat token.",
-      en: "Ever wondered how AI remembers past chats even though the API is stateless? This article debunks the 'Context Injection' trick and memory management strategies to save tokens."
+    {
+        title: {
+            id: "Mengubah Ragu Menjadi Dampak: Pengalaman Saya Mengajar Teman Satu Angkatan",
+            en: "Turning Doubt into Impact: My Experience Teaching Peers"
+        },
+        excerpt: {
+            id: "Pengalaman mengajar Struktur Data di IF Learning yang mengubah perspektif saya sepenuhnya.",
+            en: "My experience teaching Data Structures at IF Learning that completely changed my perspective."
+        },
+        content: {
+            id: Ngajar_ID,
+            en: Ngajar_EN
+        },
+        category: "Personal Development",
+        readTime: "6 min read",
+        publishedAt: "2025-12-07",
+        featured: true,
+        image_url: "https://placehold.co/600x400"
     },
-    content: {
-      id: AgentMemory_ID,
-      en: AgentMemory_EN
+    {
+        title: {
+            id: "Mengenal LLM: Ukuran File dan Parameter",
+            en: "Getting to Know LLM: File Sizes and Parameters"
+        },
+        excerpt: {
+            id: "Pernahkah Anda terkejut melihat ukuran model AI yang mencapai bergiga-giga byte? Artikel ini membedah alasan teknis di balik ukuran tersebut dan meluruskan salah kaprah bahwa LLM adalah sebuah database.",
+            en: "Have you ever been shocked by the massive file size of AI models? This article breaks down the technical reasons behind those gigabytes and debunks the misconception that LLMs are databases."
+        },
+        content: {
+            id: LLM_Size_ID,
+            en: LLM_Size_EN
+        },
+        category: "Artificial Intelligence",
+        readTime: "5 min read",
+        publishedAt: "2026-01-02",
+        featured: true,
+        image_url: "https://placehold.co/600x400"
     },
-    category: "AI AGENT",
-    readTime: "6 min read",
-    publishedAt: "2026-01-13",
-    featured: false, 
-    img: memoryIMG
-  }
+    {
+        title: {
+            id: "Linear RAG vs AI Agent: Jangan Biarkan Chatbot Anda 'Buta'",
+            en: "Linear RAG vs AI Agent: Don't Let Your Chatbot Fly Blind"
+        },
+        excerpt: {
+            id: "Mengapa sekadar menempelkan database ke LLM (Linear RAG) seringkali gagal? Pelajari bagaimana arsitektur Agentic Workflow membuat aplikasi hukum menjadi lebih cerdas dan efisien.",
+            en: "Why does simply attaching a database to an LLM (Linear RAG) often fail? Learn how Agentic Workflow architecture makes legal applications smarter and more efficient."
+        },
+        content: {
+            id: LegalAgent_ID,
+            en: LegalAgent_EN
+        },
+        category: "AI AGENT",
+        readTime: "7 min read",
+        publishedAt: "2026-01-08",
+        featured: true,
+        image_url: "https://placehold.co/600x400"
+    },
+    {
+        title: {
+            id: "Stateless to Stateful: Membedah Cara Kerja 'Memori' pada AI Agent",
+            en: "Stateless to Stateful: Dissecting How 'Memory' Works in AI Agents"
+        },
+        excerpt: {
+            id: "Pernah bingung kenapa AI bisa ingat chat sebelumnya padahal API-nya stateless? Artikel ini membongkar trik 'Context Injection' dan strategi manajemen memori agar hemat token.",
+            en: "Ever wondered how AI remembers past chats even though the API is stateless? This article debunks the 'Context Injection' trick and memory management strategies to save tokens."
+        },
+        content: {
+            id: AgentMemory_ID,
+            en: AgentMemory_EN
+        },
+        category: "AI AGENT",
+        readTime: "6 min read",
+        publishedAt: "2026-01-13",
+        featured: false,
+        image_url: "https://placehold.co/600x400"
+    }
 ];
+
+async function seed() {
+    console.log('Seeding projects...');
+    const { error: projectError } = await supabase.from('projects').insert(projects);
+    if (projectError) {
+        console.error('Error seeding projects:', projectError);
+    } else {
+        console.log('Projects seeded successfully.');
+    }
+
+    console.log('Seeding blogs...');
+    const { error: blogError } = await supabase.from('blogs').insert(blogs);
+    if (blogError) {
+        console.error('Error seeding blogs:', blogError);
+    } else {
+        console.log('Blogs seeded successfully.');
+    }
+}
+
+seed();

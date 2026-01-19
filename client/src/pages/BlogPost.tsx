@@ -1,22 +1,60 @@
 import { useRoute } from "wouter";
-import { blogPosts } from "@/lib/blogData";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, ArrowLeft } from "lucide-react";
+import { Calendar, Clock, ArrowLeft, Loader2 } from "lucide-react";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/lib/supabase";
+
+interface BlogPost {
+    id: string;
+    title: { en: string; id: string };
+    excerpt: { en: string; id: string };
+    content: { en: string; id: string };
+    category: string;
+    read_time: string;
+    published_at: string;
+    featured: boolean;
+    image_url: string;
+}
 
 export default function BlogPost() {
     const [match, params] = useRoute("/blog/:id");
     const { t, i18n } = useTranslation();
     const currentLang = (i18n.language === 'id' ? 'id' : 'en') as 'en' | 'id';
 
-    // If we are not on the correct route (shouldn't happen if properly routed), return null
+    const { data: post, isLoading } = useQuery({
+        queryKey: ['blog', params?.id],
+        queryFn: async () => {
+            if (!params?.id) return null;
+            const { data, error } = await supabase
+                .from('blogs')
+                .select('*')
+                .eq('id', params.id)
+                .single();
+
+            if (error) throw error;
+            return data as BlogPost;
+        },
+        enabled: !!params?.id
+    });
+
     if (!match) return null;
 
-    const post = blogPosts.find((p) => p.id === params.id);
+    if (isLoading) {
+        return (
+            <div className="min-h-screen flex flex-col">
+                <Navigation />
+                <main className="flex-1 flex items-center justify-center pt-16">
+                    <Loader2 className="h-10 w-10 animate-spin text-primary" />
+                </main>
+                <Footer />
+            </div>
+        );
+    }
 
     if (!post) {
         return (
@@ -59,20 +97,20 @@ export default function BlogPost() {
                         <div className="flex items-center gap-6 text-muted-foreground">
                             <div className="flex items-center gap-2">
                                 <Calendar className="w-4 h-4" />
-                                <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
+                                <span>{new Date(post.published_at).toLocaleDateString()}</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <Clock className="w-4 h-4" />
-                                <span>{post.readTime}</span>
+                                <span>{post.read_time}</span>
                             </div>
                         </div>
                     </div>
 
                     {/* Hero Image */}
                     <div className="aspect-[21/9] w-full bg-muted rounded-xl overflow-hidden mb-12 relative">
-                        {post.img ? (
+                        {post.image_url ? (
                             <img
-                                src={post.img}
+                                src={post.image_url}
                                 alt={post.title[currentLang]}
                                 className="w-full h-full object-cover"
                             />

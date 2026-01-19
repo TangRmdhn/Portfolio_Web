@@ -12,6 +12,9 @@ import About from "@/pages/About";
 import NotFound from "@/pages/not-found";
 import ScrollToTop from "@/components/scroll-to-top";
 import SmoothScroll from "@/components/smooth-scroll";
+import Login from "@/pages/admin/Login";
+import Dashboard from "@/pages/admin/Dashboard";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
 function Router() {
   return (
@@ -22,6 +25,12 @@ function Router() {
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:id" component={BlogPost} />
       <Route path="/chatbot" component={Chatbot} />
+      <Route path="/admin/login" component={Login} />
+      <Route path="/admin/dashboard">
+        <ProtectedRoute>
+          <Dashboard />
+        </ProtectedRoute>
+      </Route>
       <Route component={NotFound} />
     </Switch>
   );
