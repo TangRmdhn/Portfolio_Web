@@ -26,7 +26,7 @@ function Router() {
       <Route path="/blog/:id" component={BlogPost} />
       <Route path="/chatbot" component={Chatbot} />
       <Route path="/admin/login" component={Login} />
-      <Route path="/admin/dashboard">
+      <Route path="/admin">
         <ProtectedRoute>
           <Dashboard />
         </ProtectedRoute>

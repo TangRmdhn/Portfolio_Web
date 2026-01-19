@@ -4,14 +4,34 @@ import { ArrowRight, Clock } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/lib/supabase";
+import { BlogPost } from "@/lib/types";
 
-import { blogPosts as allBlogPosts } from "@/lib/blogData";
 
-const blogPosts = allBlogPosts.filter(post => post.featured);
 
 export default function BlogHighlights() {
   const { t, i18n } = useTranslation();
   const currentLang = (i18n.language === 'id' ? 'id' : 'en') as 'en' | 'id';
+
+  const { data: blogPosts, isLoading } = useQuery({
+    queryKey: ['highlighted-blogs'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('blogs')
+        .select('*')
+        .eq('featured', true)
+        .order('published_at', { ascending: false })
+        .limit(3);
+
+      if (error) throw error;
+      return data as BlogPost[];
+    }
+  });
+
+  if (isLoading) return null; // Or a skeleton if preferred, but null for highlights is fine to avoid jumping
+
+  if (!blogPosts?.length) return null;
 
   return (
     <section className="py-16 md:py-20 lg:py-24">
@@ -39,9 +59,9 @@ export default function BlogHighlights() {
                 data-testid={`card-blog-${post.id}`}
               >
                 <div className="aspect-video bg-gradient-to-br from-accent/20 via-primary/10 to-muted/20 relative overflow-hidden">
-                  {post.img ? (
+                  {post.image_url ? (
                     <img
-                      src={post.img}
+                      src={post.image_url}
                       alt={post.title[currentLang]}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
@@ -62,9 +82,9 @@ export default function BlogHighlights() {
                   <div className="flex items-center justify-between text-xs text-muted-foreground">
                     <div className="flex items-center gap-1">
                       <Clock className="w-3 h-3" />
-                      <span>{post.readTime}</span>
+                      <span>{post.read_time}</span>
                     </div>
-                    <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
+                    <span>{new Date(post.published_at).toLocaleDateString()}</span>
                   </div>
                 </div>
               </Card>

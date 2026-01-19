@@ -3,41 +3,42 @@ import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Trophy, Award, Mail, Linkedin, Github, Phone, GraduationCap, Briefcase, Calendar } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/lib/supabase";
+import { Experience, Education, Certification, Award as AwardType } from "@/lib/types";
 
 export default function About() {
-    const certifications = [
-        {
-            title: "LLM On Production",
-            issuer: "Rubythalib.ai",
-            date: "2024",
+    const { data: experiences } = useQuery({
+        queryKey: ["experiences"],
+        queryFn: async () => {
+            const { data } = await supabase.from("experiences").select("*").order("created_at", { ascending: false });
+            return data as Experience[] || [];
         },
-        {
-            title: "Data Classification & Summarization Using IBM Granite",
-            issuer: "IBM",
-            date: "2024",
-        },
-        {
-            title: "Belajar Machine Learning untuk Pemula",
-            issuer: "Dicoding Indonesia",
-            date: "2023",
-        },
-        {
-            title: "Belajar Fundamental Deep Learning",
-            issuer: "Dicoding Indonesia",
-            date: "2023",
-        },
-    ];
+    });
 
-    const awards = [
-        {
-            title: "3rd Place, Competitive Programming",
-            description: "National Software Engineering Competition (SECOMP) (2024)",
+    const { data: educations } = useQuery({
+        queryKey: ["educations"],
+        queryFn: async () => {
+            const { data } = await supabase.from("educations").select("*").order("created_at", { ascending: false });
+            return data as Education[] || [];
         },
-        {
-            title: "2nd Place, Coding Competition",
-            description: "National Information System Competition (ISC) (2024)",
+    });
+
+    const { data: certifications } = useQuery({
+        queryKey: ["certifications"],
+        queryFn: async () => {
+            const { data } = await supabase.from("certifications").select("*").order("created_at", { ascending: false });
+            return data as Certification[] || [];
         },
-    ];
+    });
+
+    const { data: awards } = useQuery({
+        queryKey: ["awards"],
+        queryFn: async () => {
+            const { data } = await supabase.from("awards").select("*").order("created_at", { ascending: false });
+            return data as AwardType[] || [];
+        },
+    });
 
     return (
         <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/20">
@@ -97,28 +98,22 @@ export default function About() {
                             </div>
                             <h2 className="text-3xl md:text-4xl font-bold font-serif">Education</h2>
                         </div>
-                        <Card className="bg-card hover:border-primary/50 transition-colors h-full">
-                            <CardContent className="p-6 space-y-4">
-                                <div>
-                                    <h3 className="text-xl font-semibold">Informatics</h3>
-                                    <p className="text-primary font-medium">
-                                        <a href="https://www.upnyk.ac.id/" target="_blank" rel="noreferrer">
-                                            Universitas Pembangunan Nasional "Veteran" Yogyakarta
-                                        </a>
-                                    </p>
-                                </div>
-                                <div className="flex items-center gap-2 text-muted-foreground text-sm">
-                                    <Calendar className="w-4 h-4" />
-                                    <span>2024 - Present</span>
-                                </div>
-                                <div className="flex items-center gap-2 text-muted-foreground text-sm">
-                                    <span>GPA: 3.77/4.0 | 2nd Semester</span>
-                                </div>
-                                <p className="text-muted-foreground">
-                                    Active Member of Linux Study Group (Focus on OS Architecture & Troubleshooting).
-                                </p>
-                            </CardContent>
-                        </Card>
+                        {educations?.map((edu) => (
+                            <Card key={edu.id} className="bg-card hover:border-primary/50 transition-colors">
+                                <CardContent className="p-6 space-y-4">
+                                    <div>
+                                        <h3 className="text-xl font-semibold">{edu.degree}</h3>
+                                        <p className="text-primary font-medium">
+                                            {edu.institution}
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-muted-foreground text-sm">
+                                        <Calendar className="w-4 h-4" />
+                                        <span>{edu.year}</span>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        ))}
                     </div>
 
                     {/* Experience - FIXED: Added mt-12 for mobile spacing */}
@@ -129,21 +124,23 @@ export default function About() {
                             </div>
                             <h2 className="text-3xl md:text-4xl font-bold font-serif">Experience</h2>
                         </div>
-                        <Card className="bg-card hover:border-primary/50 transition-colors h-full">
-                            <CardContent className="p-6 space-y-4">
-                                <div>
-                                    <h3 className="text-xl font-semibold">AI Engineer Student / Freelancer</h3>
-                                    <p className="text-primary font-medium">Self-Employed / Open to Work</p>
-                                </div>
-                                <div className="flex items-center gap-2 text-muted-foreground text-sm">
-                                    <Calendar className="w-4 h-4" />
-                                    <span>2024 - Present</span>
-                                </div>
-                                <p className="text-muted-foreground">
-                                    Developing personal projects focused on Generative AI and RAG. Building full-stack applications with React and FastAPI.
-                                </p>
-                            </CardContent>
-                        </Card>
+                        {experiences?.map((exp) => (
+                            <Card key={exp.id} className="bg-card hover:border-primary/50 transition-colors">
+                                <CardContent className="p-6 space-y-4">
+                                    <div>
+                                        <h3 className="text-xl font-semibold">{exp.position}</h3>
+                                        <p className="text-primary font-medium">{exp.company}</p>
+                                    </div>
+                                    <div className="flex items-center gap-2 text-muted-foreground text-sm">
+                                        <Calendar className="w-4 h-4" />
+                                        <span>{exp.duration}</span>
+                                    </div>
+                                    <p className="text-muted-foreground">
+                                        {exp.description}
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        ))}
                     </div>
                 </section>
 
@@ -151,15 +148,15 @@ export default function About() {
                 <section className="space-y-8">
                     <h2 className="text-3xl md:text-4xl font-bold font-serif text-center">Certifications</h2>
                     <div className="grid md:grid-cols-2 gap-6">
-                        {certifications.map((cert, index) => (
-                            <Card key={index} className="bg-card hover:border-primary/50 transition-colors">
+                        {certifications?.map((cert) => (
+                            <Card key={cert.id} className="bg-card hover:border-primary/50 transition-colors">
                                 <CardContent className="p-6 flex items-start gap-4">
                                     <div className="p-3 bg-primary/10 rounded-lg shrink-0">
                                         <Award className="w-6 h-6 text-primary" />
                                     </div>
                                     <div>
-                                        <h3 className="text-lg md:text-xl font-semibold mb-1 leading-tight">{cert.title}</h3>
-                                        <p className="text-sm md:text-base text-muted-foreground">{cert.issuer} • {cert.date}</p>
+                                        <h3 className="text-lg md:text-xl font-semibold mb-1 leading-tight">{cert.name}</h3>
+                                        <p className="text-sm md:text-base text-muted-foreground">{cert.issuer} • {cert.year}</p>
                                     </div>
                                 </CardContent>
                             </Card>
@@ -171,15 +168,16 @@ export default function About() {
                 <section className="space-y-8">
                     <h2 className="text-3xl md:text-4xl font-bold font-serif text-center">Awards & Achievements</h2>
                     <div className="grid md:grid-cols-2 gap-6">
-                        {awards.map((award, index) => (
-                            <Card key={index} className="bg-card hover:border-primary/50 transition-colors">
+                        {awards?.map((award) => (
+                            <Card key={award.id} className="bg-card hover:border-primary/50 transition-colors">
                                 <CardContent className="p-6 flex items-start gap-4">
                                     <div className="p-3 bg-primary/10 rounded-lg shrink-0">
                                         <Trophy className="w-6 h-6 text-primary" />
                                     </div>
                                     <div>
-                                        <h3 className="text-lg md:text-xl font-semibold mb-1 leading-tight">{award.title}</h3>
+                                        <h3 className="text-lg md:text-xl font-semibold mb-1 leading-tight">{award.name}</h3>
                                         <p className="text-sm md:text-base text-muted-foreground">{award.description}</p>
+                                        <p className="text-xs text-muted-foreground mt-1">{award.issuer} • {award.year}</p>
                                     </div>
                                 </CardContent>
                             </Card>

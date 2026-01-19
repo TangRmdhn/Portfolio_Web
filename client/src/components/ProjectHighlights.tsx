@@ -1,12 +1,40 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, ExternalLink, Github } from "lucide-react";
+import { ArrowRight, ExternalLink, Github, Loader2 } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { projectData } from "@/lib/projectData";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/lib/supabase";
+import { Project } from "@/lib/types";
 
 export default function ProjectHighlights() {
-  const highlightedProjects = projectData.filter(p => p.featured);
+  const { data: highlightedProjects, isLoading } = useQuery({
+    queryKey: ['highlighted-projects'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('projects')
+        .select('*')
+        .eq('featured', true)
+        .order('created_at', { ascending: false })
+        .limit(3);
+
+      if (error) throw error;
+      return data as Project[];
+    }
+  });
+
+  if (isLoading) {
+    return (
+      <section className="py-16 md:py-20 lg:py-24 bg-card">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 flex justify-center">
+          <Loader2 className="h-8 w-8 animate-spin" />
+        </div>
+      </section>
+    );
+  }
+
+  if (!highlightedProjects?.length) return null;
+
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-card">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -33,9 +61,9 @@ export default function ProjectHighlights() {
               data-testid={`card-project-${project.id}`}
             >
               <div className="aspect-video bg-gradient-to-br from-primary/20 via-accent/10 to-muted/20 relative overflow-hidden">
-                {project.imageUrl ? (
+                {project.image_url ? (
                   <img
-                    src={project.imageUrl}
+                    src={project.image_url}
                     alt={project.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
@@ -43,28 +71,32 @@ export default function ProjectHighlights() {
                   <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60" />
                 )}
                 <div className="absolute top-4 right-4 flex gap-2">
-                  <div className="p-2 rounded-lg bg-background/80 backdrop-blur-sm hover-elevate active-elevate-2">
-                    <Button
-                      size="icon"
-                      variant="secondary"
-                      className="rounded-lg"
-                      data-testid={`button-github-${project.id}`}
-                      onClick={() => window.open(project.links.github, "_blank")}
-                    >
-                      <Github className="w-4 h-4" />
-                    </Button>
-                  </div>
-                  <div className="p-2 rounded-lg bg-background/80 backdrop-blur-sm hover-elevate active-elevate-2">
-                    <Button
-                      size="icon"
-                      variant="secondary"
-                      className="rounded-lg"
-                      data-testid={`button-live-${project.links.demo}`}
-                      onClick={() => window.open(project.links.demo, "_blank")}
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                    </Button>
-                  </div>
+                  {project.github_link && (
+                    <div className="p-2 rounded-lg bg-background/80 backdrop-blur-sm hover-elevate active-elevate-2">
+                      <Button
+                        size="icon"
+                        variant="secondary"
+                        className="rounded-lg"
+                        data-testid={`button-github-${project.id}`}
+                        onClick={() => window.open(project.github_link, "_blank")}
+                      >
+                        <Github className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  )}
+                  {project.demo_link && (
+                    <div className="p-2 rounded-lg bg-background/80 backdrop-blur-sm hover-elevate active-elevate-2">
+                      <Button
+                        size="icon"
+                        variant="secondary"
+                        className="rounded-lg"
+                        data-testid={`button-live-${project.demo_link}`}
+                        onClick={() => window.open(project.demo_link, "_blank")}
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="p-5 md:p-8">
@@ -73,7 +105,7 @@ export default function ProjectHighlights() {
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech) => (
+                  {project.technologies?.map((tech) => (
                     <Badge key={tech} variant="secondary" data-testid={`badge-tech-${tech.toLowerCase()}`}>
                       {tech}
                     </Badge>

@@ -27,7 +27,7 @@ const Login = () => {
         if (error) {
             setError(error.message);
         } else {
-            setLocation('/admin/dashboard');
+            setLocation('/admin');
         }
         setLoading(false);
     };

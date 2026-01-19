@@ -1,130 +1,157 @@
-import { createClient } from '@supabase/supabase-js';
-import * as dotenv from 'dotenv';
-import path from 'path';
 
+import { createClient } from '@supabase/supabase-js';
+import dotenv from 'dotenv';
+import path from 'path';
 import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Load env vars from .env file in root
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
-
+// Load environment variables
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
 const supabaseUrl = process.env.VITE_SUPABASE_URL;
-const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
+const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY;
 
-if (!supabaseUrl || !supabaseKey) {
-    console.error('Missing VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY');
+if (!supabaseUrl || !supabaseServiceRoleKey) {
+    console.error('Missing Supabase credentials in .env file');
     process.exit(1);
 }
 
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
 
-const projects = [
+// --- FULL DATA ---
+
+const projectData = [
     {
+        id: "1",
         title: "TrainHub",
         description: "Web application designed to help users create personalized weekly workout plans using the power of AI.",
         technologies: ["FastAPI", "Gemini API", "Python"],
         category: "AI Integration",
         featured: true,
-        github_link: "https://github.com/TangRmdhn/TrainHub",
-        demo_link: "https://trainhub.web.id",
-        image_url: "https://placehold.co/600x400"
+        links: {
+            github: "https://github.com/TangRmdhn/TrainHub",
+            demo: "https://trainhub.web.id"
+        },
+        imageUrl: "https://placehold.co/600x400?text=TrainHub",
     },
     {
+        id: "2",
         title: "WhatsInNews",
         description: "RAG-based web app that allows users to summarize news articles and chat with the content.",
         technologies: ["OpenAI API", "LangChain", "ChromaDB"],
         category: "AI Integration",
         featured: false,
-        github_link: "https://github.com/TangRmdhn/WhatsInNews",
-        demo_link: "https://github.com/TangRmdhn/WhatsInNews",
-        image_url: "https://placehold.co/600x400"
+        links: {
+            github: "https://github.com/TangRmdhn/WhatsInNews",
+            demo: "https://github.com/TangRmdhn/WhatsInNews"
+        },
+        imageUrl: "https://placehold.co/600x400?text=WhatsInNews",
     },
     {
+        id: "3",
         title: "CodeGrader",
         description: "A web application to automatically grade programming assignments using Groq AI.",
         technologies: ["Groq API", "PyPDF", "Streamlit"],
         category: "AI Integration",
         featured: false,
-        github_link: "https://github.com/TangRmdhn/CodeGrader",
-        demo_link: "https://penilaikode.streamlit.app",
-        image_url: "https://placehold.co/600x400"
+        links: {
+            github: "https://github.com/TangRmdhn/CodeGrader",
+            demo: "https://penilaikode.streamlit.app"
+        },
+        imageUrl: "https://placehold.co/600x400?text=CodeGrader",
     },
     {
+        id: "4",
         title: "MyFirstRAG",
         description: "First end-to-end implementation project for learning and understanding Retrieval-Augmented Generation (RAG).",
         technologies: ["RAG", "OpenAI API", "Streamlit"],
         category: "AI Integration",
         featured: false,
-        github_link: "https://github.com/TangRmdhn/MyFirstRAG/tree/main",
-        demo_link: "https://github.com/TangRmdhn/MyFirstRAG/tree/main",
-        image_url: "https://placehold.co/600x400"
+        links: {
+            github: "https://github.com/TangRmdhn/MyFirstRAG/tree/main",
+            demo: "https://github.com/TangRmdhn/MyFirstRAG/tree/main"
+        },
+        imageUrl: "https://placehold.co/600x400?text=MyFirstRAG",
     },
     {
+        id: "5",
         title: "FlowerClassification",
         description: "Flower classification notebook using transfer learning and deep learning.",
         technologies: ["Transfer Learning", "Deep Learning", "Python"],
         category: "Deep Learning",
         featured: false,
-        github_link: "https://github.com/TangRmdhn/FlowersClassification",
-        demo_link: "https://github.com/TangRmdhn/FlowersClassification",
-        image_url: "https://placehold.co/600x400"
+        links: {
+            github: "https://github.com/TangRmdhn/FlowersClassification",
+            demo: "https://github.com/TangRmdhn/FlowersClassification"
+        },
+        imageUrl: "https://placehold.co/600x400?text=FlowerClassification",
     },
     {
+        id: "6",
         title: "AnimeRecomendation",
         description: "Anime recomendation using NLP and Machine Learning.",
         technologies: ["NLP", "Machine Learning", "Python"],
         category: "Machine Learning",
         featured: false,
-        github_link: "https://github.com/TangRmdhn/Anime-Recommendation",
-        demo_link: "https://github.com/TangRmdhn/Anime-Recommendation",
-        image_url: "https://placehold.co/600x400"
+        links: {
+            github: "https://github.com/TangRmdhn/Anime-Recommendation",
+            demo: "https://github.com/TangRmdhn/Anime-Recommendation"
+        },
+        imageUrl: "https://placehold.co/600x400?text=AnimeRecomendation",
     },
     {
+        id: "7",
         title: "HousePricePrediction",
         description: "House price prediction using Machine Learning.",
         technologies: ["Machine Learning", "Python", "Regression"],
         category: "Machine Learning",
         featured: false,
-        github_link: "https://github.com/TangRmdhn/HousePricePrediction/tree/main",
-        demo_link: "https://github.com/TangRmdhn/HousePricePrediction/tree/main",
-        image_url: "https://placehold.co/600x400"
+        links: {
+            github: "https://github.com/TangRmdhn/HousePricePrediction/tree/main",
+            demo: "https://github.com/TangRmdhn/HousePricePrediction/tree/main"
+        },
+        imageUrl: "https://placehold.co/600x400?text=HousePricePrediction",
     },
     {
+        id: "8",
         title: "HeartAttackClassification",
         description: "Heart attack classification using Machine Learning.",
         technologies: ["Machine Learning", "Python", "Classification"],
         category: "Machine Learning",
         featured: false,
-        github_link: "https://github.com/TangRmdhn/HeartAttackClassification/tree/main",
-        demo_link: "https://github.com/TangRmdhn/HeartAttackClassification/tree/main",
-        image_url: "https://placehold.co/600x400"
+        links: {
+            github: "https://github.com/TangRmdhn/HeartAttackClassification/tree/main",
+            demo: "https://github.com/TangRmdhn/HeartAttackClassification/tree/main"
+        },
+        imageUrl: "https://placehold.co/600x400?text=HeartAttackClassification",
     },
     {
+        id: "9",
         title: "SentimentalAnalysis",
         description: "Sentimental analysis using Machine Learning & NLP.",
         technologies: ["Machine Learning", "Python", "NLP"],
         category: "Machine Learning",
         featured: false,
-        github_link: "https://github.com/TangRmdhn/SentimentAnalysis",
-        demo_link: "https://github.com/TangRmdhn/SentimentAnalysis",
-        image_url: "https://placehold.co/600x400"
+        links: {
+            github: "https://github.com/TangRmdhn/SentimentAnalysis",
+            demo: "https://github.com/TangRmdhn/SentimentAnalysis"
+        },
+        imageUrl: "https://placehold.co/600x400?text=SentimentalAnalysis",
     },
     {
+        id: "10",
         title: "LegalFlows",
         description: "An autonomous agent specialized in UU ITE, PDP, and PSE regulations. Validate your product features against Indonesian law before release.",
         technologies: ["AI Agent", "LangChain", "LangGraph"],
         category: "AI Agent",
         featured: true,
-        github_link: "https://github.com/TangRmdhn/LegalFlow",
-        demo_link: "https://legalflows.vercel.app/",
-        image_url: "https://placehold.co/600x400"
+        links: {
+            github: "https://github.com/TangRmdhn/LegalFlow",
+            demo: "https://legalflows.vercel.app/"
+        },
+        imageUrl: "https://placehold.co/600x400?text=LegalFlows",
     },
 ];
 
-// Blog data extracted
 const HowTosStudyWithAI_ID = `
 <div class="prose prose-lg dark:prose-invert max-w-none">
     <p class="lead">Seringkali kita mendengar anggapan sinis bahwa <strong>Artificial Intelligence (AI)</strong> adalah musuh bagi dunia pendidikan. Banyak yang khawatir kehadiran AI hanya akan memicu kemalasan, menciptakan generasi mahasiswa yang ingin serba instan.</p>
@@ -521,7 +548,7 @@ def chat_with_ai(user_input):
     chat_history.append(f"User: {user_input}")
     
     # 2. INJEKSI seluruh history ke prompt
-    full_prompt = "\n".join(chat_history)
+    full_prompt = "\\n".join(chat_history)
     
     # 3. Kirim ulang semua ke AI
     response = llm.predict(full_prompt)
@@ -570,7 +597,7 @@ def chat_with_ai(user_input):
     chat_history.append(f"User: {user_input}")
     
     # 2. INJECT entire history into prompt
-    full_prompt = "\n".join(chat_history)
+    full_prompt = "\\n".join(chat_history)
     
     # 3. Resend everything to AI
     response = llm.predict(full_prompt)
@@ -595,8 +622,9 @@ def chat_with_ai(user_input):
 </div>
 `;
 
-const blogs = [
+const blogPosts = [
     {
+        id: "1",
         title: {
             id: "Cara Saya Belajar Lebih Efektif Menggunakan AI",
             en: "How I Study More Effectively Using AI"
@@ -613,9 +641,10 @@ const blogs = [
         readTime: "6 min read",
         publishedAt: "2025-12-07",
         featured: false,
-        image_url: "https://placehold.co/600x400"
+        img: "https://placehold.co/600x400?text=How+To+Study+with+AI"
     },
     {
+        id: "2",
         title: {
             id: "Mengubah Ragu Menjadi Dampak: Pengalaman Saya Mengajar Teman Satu Angkatan",
             en: "Turning Doubt into Impact: My Experience Teaching Peers"
@@ -632,9 +661,10 @@ const blogs = [
         readTime: "6 min read",
         publishedAt: "2025-12-07",
         featured: true,
-        image_url: "https://placehold.co/600x400"
+        img: "https://placehold.co/600x400?text=Teaching+Peers"
     },
     {
+        id: "3",
         title: {
             id: "Mengenal LLM: Ukuran File dan Parameter",
             en: "Getting to Know LLM: File Sizes and Parameters"
@@ -651,9 +681,10 @@ const blogs = [
         readTime: "5 min read",
         publishedAt: "2026-01-02",
         featured: true,
-        image_url: "https://placehold.co/600x400"
+        img: "https://placehold.co/600x400?text=LLM+Size"
     },
     {
+        id: "4",
         title: {
             id: "Linear RAG vs AI Agent: Jangan Biarkan Chatbot Anda 'Buta'",
             en: "Linear RAG vs AI Agent: Don't Let Your Chatbot Fly Blind"
@@ -670,9 +701,10 @@ const blogs = [
         readTime: "7 min read",
         publishedAt: "2026-01-08",
         featured: true,
-        image_url: "https://placehold.co/600x400"
+        img: "https://placehold.co/600x400?text=Linear+RAG"
     },
     {
+        id: "5",
         title: {
             id: "Stateless to Stateful: Membedah Cara Kerja 'Memori' pada AI Agent",
             en: "Stateless to Stateful: Dissecting How 'Memory' Works in AI Agents"
@@ -689,25 +721,42 @@ const blogs = [
         readTime: "6 min read",
         publishedAt: "2026-01-13",
         featured: false,
-        image_url: "https://placehold.co/600x400"
+        img: "https://placehold.co/600x400?text=AI+Memory"
     }
 ];
 
 async function seed() {
-    console.log('Seeding projects...');
-    const { error: projectError } = await supabase.from('projects').insert(projects);
-    if (projectError) {
-        console.error('Error seeding projects:', projectError);
-    } else {
-        console.log('Projects seeded successfully.');
+    console.log('Seeding Projects...');
+    for (const project of projectData) {
+        const { error } = await supabase.from('projects').insert({
+            title: project.title,
+            description: project.description,
+            technologies: project.technologies,
+            category: project.category,
+            featured: project.featured,
+            github_link: project.links.github,
+            demo_link: project.links.demo,
+            image_url: project.imageUrl,
+            // id: project.id // Let supabase generate UUID
+        });
+        if (error) console.error(`Error inserting project ${project.title}:`, error);
+        else console.log(`Inserted project: ${project.title}`);
     }
 
-    console.log('Seeding blogs...');
-    const { error: blogError } = await supabase.from('blogs').insert(blogs);
-    if (blogError) {
-        console.error('Error seeding blogs:', blogError);
-    } else {
-        console.log('Blogs seeded successfully.');
+    console.log('Seeding Blogs...');
+    for (const blog of blogPosts) {
+        const { error } = await supabase.from('blogs').insert({
+            title: blog.title, // jsonb
+            excerpt: blog.excerpt, // jsonb
+            content: blog.content, // jsonb
+            category: blog.category,
+            read_time: blog.readTime,
+            published_at: blog.publishedAt,
+            featured: blog.featured,
+            image_url: blog.img
+        });
+        if (error) console.error(`Error inserting blog ${blog.title.en}:`, error);
+        else console.log(`Inserted blog: ${blog.title.en}`);
     }
 }
 

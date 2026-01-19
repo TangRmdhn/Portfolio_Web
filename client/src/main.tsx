@@ -4,8 +4,12 @@ import "./index.css";
 import { ThemeProvider } from "./components/theme-provider";
 import "./lib/i18n";
 
+import { ErrorBoundary } from "./components/ErrorBoundary";
+
 createRoot(document.getElementById("root")!).render(
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <App />
-    </ThemeProvider>
+    <ErrorBoundary>
+        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+            <App />
+        </ThemeProvider>
+    </ErrorBoundary>
 );
