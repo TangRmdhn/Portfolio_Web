@@ -13,13 +13,12 @@ import {
 } from "@/components/ui/table";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
-import { Plus, Pencil, Trash2, ExternalLink } from "lucide-react";
+import { Plus, Pencil, Trash2 } from "lucide-react";
 import {
     Dialog,
     DialogContent,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -101,47 +100,12 @@ export function ProjectManager() {
         },
     });
 
+
     // --- Handlers ---
-    const handleEdit = (project: Project) => {
-        setEditingProject(project);
-        setIsDialogOpen(true);
-    };
-
-    const handleAddNew = () => {
-        setEditingProject(null);
-        setIsDialogOpen(true);
-    };
-
     const handleDelete = (id: string) => {
         if (confirm("Are you sure you want to delete this project?")) {
             deleteProjectMutation.mutate(id);
         }
-    };
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-
-        // Parse technologies from comma-separated string
-        const techString = formData.get("technologies") as string;
-        const technologies = techString.split(",").map((t) => t.trim()).filter(Boolean);
-
-        const projectData = {
-            title: formData.get("title") as string,
-            category: formData.get("category") as string,
-            description: formData.get("description") as string,
-            github_link: formData.get("github_link") as string,
-            demo_link: formData.get("demo_link") as string,
-            featured: formData.get("featured") === "on",
-            technologies,
-            // Image URL is handled by state or hidden input, let's use a hidden input for simplicity or controlled state
-            // For now, grabbing from the ImageUploader via state would be better, but let's assume hidden input for form data or handle separately.
-            // Refactoring to state-based form for Image
-        };
-
-        // We need to pass the image_url. 
-        // Let's use a controlled form approach for the image url or just append it.
-        // I'll assume the ImageUploader was passed a callback that updated a ref or state.
     };
 
     // Re-implementing Form using state for simpler handling of arrays and images

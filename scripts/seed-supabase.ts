@@ -2,7 +2,7 @@
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
 import path from 'path';
-import { fileURLToPath } from 'url';
+
 
 // Load environment variables
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
